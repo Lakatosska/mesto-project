@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+
+    <title>Проект Mesto</title>
+    <meta name="description" content="аккаунт в социальной сети Mesto" />
+    <meta
+      name="keywords"
+      content="социальная сеть, фотографии, путешествия, фотовпечатления"
+    />
+    <meta name="author" content="Елена Никифорова" />
+  </head>
+
+  <body class="root">
+    <div class="page">
+      <header class="header">
+        <img
+          class="header__logo"
+          src="./images/header-logo.svg"
+          alt="логотип сервиса Место (Россия)"
+        />
+      </header>
+
+      <main class="content">
+        <section class="profile">
+          <div class="profile__info">
+            <img
+              class="profile__avatar"
+              src="./images/header-avatar.jpg"
+              alt="фотография владельца аккаунта"
+            />
+
+            <div class="profile__item">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit-button"></button>
+              <p class="profile__occupation">Исследователь океана</p>
+            </div>
+          </div>
+
+          <button type="button" class="profile__add-button"></button>
+        </section>
+
+        <section class="elements">
+          <ul class="elements__list">
+            <li class="element">
+              <img
+                class="element__photo"
+                src="./images/element-karachaevsk.jpg"
+                alt="пейзажи Карачаевска"
+              />
+              <div class="element__info">
+                <h2 class="element__sightseeing">Карачаевск</h2>
+                <button class="element__heart-button"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__photo"
+                src="./images/element-elbrus.jpg"
+                alt="вид издалека на гору Эльбрус"
+              />
+              <div class="element__info">
+                <h2 class="element__sightseeing">Гора Эльбрус</h2>
+                <button
+                  class="element__heart-button element__heart-button_active"
+                ></button>
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__photo"
+                src="images/element-dombai.jpg"
+                alt="вид на заснеженную гору Домбай"
+              />
+              <div class="element__info">
+                <h2 class="element__sightseeing">Домбай</h2>
+                <button class="element__heart-button"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__photo"
+                src="./images/element-elbrus.jpg"
+                alt="вид издалека на гору Эльбрус"
+              />
+              <div class="element__info">
+                <h2 class="element__sightseeing">Гора Эльбрус</h2>
+                <button class="element__heart-button"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__photo"
+                src="images/element-dombai.jpg"
+                alt="вид на заснеженную гору Домбай"
+              />
+              <div class="element__info">
+                <h2 class="element__sightseeing">Домбай</h2>
+                <button class="element__heart-button"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__photo"
+                src="./images/element-karachaevsk.jpg"
+                alt="пейзажи Карачаево-Черкессии"
+              />
+              <div class="element__info">
+                <h2 class="element__sightseeing">Карачаево-Черкессия</h2>
+                <button class="element__heart-button"></button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__text">&copy;2021 Mesto Russia</p>
+      </footer>
+
+      <section class="popup">
+        <div class="popup__container">
+          <button type="button" class="popup__close-button"></button>
+
+          <form class="edit-form" name="profile-edit">
+            <h2 class="edit-form__heading">Редактировать профиль</h2>
+
+            <fieldset class="edit-form__fieldset">
+              <input
+                type="text"
+                name="profile__name"
+                value="Жак-Ив Кусто"
+                class="edit-form__input"
+                placeholder="Жак-Ив Кусто"
+                required
+              />
+
+              <input
+                type="text"
+                name="profile__occupation"
+                value="Исследователь океана"
+                class="edit-form__input"
+                placeholder="Исследователь океана"
+                required
+              />
+            </fieldset>
+
+            <button type="submit" class="popup__submit-button">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
