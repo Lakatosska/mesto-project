@@ -4,7 +4,7 @@
   border: 1px solid #fff;
   box-sizing: border-box;
   background-image: url(../../../images/header-edit_button.svg);
-  background-color: #000000;
+  background-color: transparent;
   background-position: center;
   cursor: pointer;
   transition: opacity 0.3s ease;
