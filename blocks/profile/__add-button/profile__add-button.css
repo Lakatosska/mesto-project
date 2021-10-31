@@ -6,7 +6,7 @@
   background-repeat: no-repeat;
   background-position: center;
   border: 2px solid #fff;
-  background-color: transparent;
+  background-color: #000000;
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
@@ -21,7 +21,7 @@
   }
 }
 
-@media screen and (max-width: 635px) {
+@media screen and (max-width: 619px) {
   .profile__add-button {
     width: 282px;
   }

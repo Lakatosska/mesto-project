@@ -4,7 +4,7 @@
   border: 1px solid #fff;
   box-sizing: border-box;
   background-image: url(../../../images/header-edit_button.svg);
-  background-color: transparent;
+  background-color: #000000;
   background-position: center;
   cursor: pointer;
   transition: opacity 0.3s ease;
@@ -14,7 +14,7 @@
   opacity: 0.6;
 }
 
-@media screen and (max-width: 635px) {
+@media screen and (max-width: 619px) {
   .profile__edit-button {
     width: 18px;
     height: 18px;

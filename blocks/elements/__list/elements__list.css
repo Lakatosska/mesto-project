@@ -4,20 +4,7 @@
   max-width: 880px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   grid-gap: 20px 17px;
   justify-items: center;
-}
-
-@media screen and (max-width: 917px) {
-  .elements__list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 635px) {
-  .elements__list {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
 }
