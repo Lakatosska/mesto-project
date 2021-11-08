@@ -16,15 +16,15 @@
 @import url("../blocks/profile/__name/profile__name.css");
 @import url("../blocks/profile/__occupation/profile__occupation.css");
 
-@import url("../blocks/elements/elements.css");
-@import url("../blocks/elements/__list/elements__list.css");
+@import url("../blocks/cards/cards.css");
+@import url("../blocks/cards/__list/cards__list.css");
 
-@import url("../blocks/element/element.css");
-@import url("../blocks/element/__heart-button/element__heart-button.css");
-@import url("../blocks/element/__heart-button/_active/element__heart-button_active.css");
-@import url("../blocks/element/__info/element__info.css");
-@import url("../blocks/element/__photo/element__photo.css");
-@import url("../blocks/element/__sightseeing/element__sightseeing.css");
+@import url("../blocks/card/card.css");
+@import url("../blocks/card/__heart-button/card__heart-button.css");
+@import url("../blocks/card/__heart-button/_active/card__heart-button_active.css");
+@import url("../blocks/card/__info/card__info.css");
+@import url("../blocks/card/__photo/card__photo.css");
+@import url("../blocks/card/__sightseeing/card__sightseeing.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__text/footer__text.css");

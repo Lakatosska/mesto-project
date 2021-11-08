@@ -1,7 +1,7 @@
-.element__heart-button {
+.card__heart-button {
   width: 22px;
   height: 19px;
-  background-image: url(../../../images/element-heart.svg);
+  background-image: url(../../../images/card-heart.svg);
   border: none;
   background-color: transparent;
   box-sizing: content-box;
@@ -11,6 +11,6 @@
   transition: opacity 0.3s ease;
 }
 
-.element__heart-button:hover {
+.card__heart-button:hover {
   opacity: 0.5;
 }
