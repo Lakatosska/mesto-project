@@ -2,4 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 1;
+  visibility: visible;
+  /* Резко включаем видимость, затем анимация прозрачности */
+  transition: visibility 0s, opacity 0.6s;
 }
