@@ -116,7 +116,7 @@ function addFormSubmitHandler(evt) {
   evt.preventDefault()
 
   cardsList.prepend(addCard(cardNameInput.value, cardLinkInput.value))
-  closePopup(popup)
+  closePopup(popupAdd)
   addFormElement.reset()
 }
 
