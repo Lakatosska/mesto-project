@@ -1,7 +1,4 @@
 .popup_opened {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   opacity: 1;
   visibility: visible;
   /* Резко включаем видимость, затем анимация прозрачности */

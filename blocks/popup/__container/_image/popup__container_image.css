@@ -1,0 +1,10 @@
+.popup__container_image {
+  width: auto;
+  min-height: auto;
+  margin: 0 auto;
+  font-size: 0;
+  background: transparent;
+  font-family: inherit;
+  padding: 0;
+  box-sizing: border-box;
+}

@@ -25,15 +25,22 @@
 @import url("../blocks/card/__info/card__info.css");
 @import url("../blocks/card/__photo/card__photo.css");
 @import url("../blocks/card/__sightseeing/card__sightseeing.css");
+@import url("../blocks/card/__trash-button/card__trash-button.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__text/footer__text.css");
 
 @import url("../blocks/popup/popup.css");
+
 @import url("../blocks/popup/__container/popup__container.css");
-@import url("../blocks/popup/_opened/popup_opened.css");
+@import url("../blocks/popup/__container/_image/popup__container_image.css");
+
 @import url("../blocks/popup/__close-button/popup__close-button.css");
 @import url("../blocks/popup/__submit-button/popup__submit-button.css");
+@import url("../blocks/popup/_image/popup_image.css");
+@import url("../blocks/popup/__sightseeing/popup__sightseeing.css");
+@import url("../blocks/popup/__photo/popup__photo.css");
+@import url("../blocks/popup/_opened/popup_opened.css");
 
 @import url("../blocks/edit-form/edit-form.css");
 @import url("../blocks/edit-form/__heading/edit-form__heading.css");

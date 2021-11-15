@@ -52,77 +52,7 @@
         </section>
 
         <section class="cards">
-          <ul class="cards__list">
-            <li class="card">
-              <img
-                class="card__photo"
-                src="./images/card-karachaevsk.jpg"
-                alt="пейзажи Карачаевска"
-              />
-              <div class="card__info">
-                <h2 class="card__sightseeing">Карачаевск</h2>
-                <button type="button" class="card__heart-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__photo"
-                src="./images/card-elbrus.jpg"
-                alt="вид издалека на гору Эльбрус"
-              />
-              <div class="card__info">
-                <h2 class="card__sightseeing">Гора Эльбрус</h2>
-                <button
-                  type="button"
-                  class="card__heart-button card__heart-button_active"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__photo"
-                src="images/card-dombai.jpg"
-                alt="вид на заснеженную гору Домбай"
-              />
-              <div class="card__info">
-                <h2 class="card__sightseeing">Домбай</h2>
-                <button type="button" class="card__heart-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__photo"
-                src="./images/card-elbrus.jpg"
-                alt="вид издалека на гору Эльбрус"
-              />
-              <div class="card__info">
-                <h2 class="card__sightseeing">Гора Эльбрус</h2>
-                <button type="button" class="card__heart-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__photo"
-                src="images/card-dombai.jpg"
-                alt="вид на заснеженную гору Домбай"
-              />
-              <div class="card__info">
-                <h2 class="card__sightseeing">Домбай</h2>
-                <button type="button" class="card__heart-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                class="card__photo"
-                src="./images/card-karachaevsk.jpg"
-                alt="пейзажи Карачаево-Черкессии"
-              />
-              <div class="card__info">
-                <h2 class="card__sightseeing">Карачаево-Черкессия</h2>
-                <button type="button" class="card__heart-button"></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="cards__list"></ul>
         </section>
       </main>
 
@@ -132,12 +62,6 @@
 
       <div class="popup popup_profile-edit">
         <div class="popup__container">
-          <button
-            type="button"
-            class="popup__close-button"
-            aria-label="закрыть"
-          ></button>
-
           <form class="edit-form edit-form_profile" name="profile-edit">
             <h2 class="edit-form__heading">Редактировать профиль</h2>
 
@@ -163,17 +87,17 @@
               Сохранить
             </button>
           </form>
-        </div>
-      </div>
 
-      <div class="popup popup_add-card">
-        <div class="popup__container">
           <button
             type="button"
             class="popup__close-button"
             aria-label="закрыть"
           ></button>
+        </div>
+      </div>
 
+      <div class="popup popup_add-card">
+        <div class="popup__container">
           <form class="edit-form edit-form_card" name="new-card">
             <h2 class="edit-form__heading">Новое место</h2>
 
@@ -187,7 +111,7 @@
               />
 
               <input
-                type="text"
+                type="url"
                 name="card-link"
                 class="edit-form__input edit-form__input_card-link"
                 placeholder="Ссылка на картинку"
@@ -199,9 +123,41 @@
               Сохранить
             </button>
           </form>
+
+          <button
+            type="button"
+            class="popup__close-button"
+            aria-label="закрыть"
+          ></button>
         </div>
       </div>
     </div>
-    <script src="./pages/index.js"></script>
+
+    <div class="popup popup_image">
+      <div class="popup__container popup__container_image">
+        <img class="popup__photo"></img>
+        <h2 class="popup__sightseeing"></h2>
+        <button
+        type="button"
+        class="popup__close-button"
+        aria-label="закрыть"
+      ></button>
+      </div>
+
+    </div>
+
+    <template id="card-template">
+      <li class="card">
+        <img class="card__photo" src="" alt="" />
+        <button type="button" class="card__trash-button"></button>
+        <div class="card__info">
+          <h2 class="card__sightseeing"></h2>
+          <button type="button" class="card__heart-button"></button>
+        </div>
+      </li>
+    </template>
+
+    <script src="./scripts/cards.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
