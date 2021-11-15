@@ -1,13 +1,18 @@
-<!-- Профиль. Открытие и закрытие модального окна, редактирование -->
+// ПРОФИЛЬ. ОТКРЫТИЕ И ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА, РЕДАКТИРОВАНИЕ
 
+const popup = document.querySelector('.popup')
 const profile = document.querySelector('.profile')
 const popupEdit = document.querySelector('.popup_profile-edit')
 const editButton =  profile.querySelector('.profile__edit-button')
 const closeEditButton =  popupEdit.querySelector('.popup__close-button')
 
-const openPopupEdit = () => popupEdit.classList.add('popup_opened')
-const closePopupEdit = () => popupEdit.classList.remove('popup_opened')
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
 
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
 
 // Находим форму в DOM
 const editFormElement = document.querySelector('.edit-form_profile')
@@ -22,13 +27,13 @@ const profileJob = profile.querySelector('.profile__job')
 
 // Открытие модального окна, поля заполняются значениями, указанными в профиле
 editButton.addEventListener('click', () => {
-  openPopupEdit()
+  openPopup(popupEdit)
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
 })
 
 // Закрытие модального окна, введенные данные не сохраняются
-closeEditButton.addEventListener('click', () => closePopupEdit())
+closeEditButton.addEventListener('click', () => closePopup(popup))
 
 // Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
 function formSubmitHandler (evt) {
@@ -37,24 +42,22 @@ function formSubmitHandler (evt) {
   // Вставьте новые значения с помощью textContent
   profileName.textContent = nameInput.value
   profileJob.textContent = jobInput.value
-  closePopupEdit()
+  closePopup(popupEdit)
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 editFormElement.addEventListener('submit', formSubmitHandler)
 
-
-<!-- Карточки + кнопка добавления и закрытия, модальное окно на добавление и на просмотр -->
+// КАРТОЧКИ + КНОПКА ДОБАВЛЕНИЯ И ЗАКРЫТИЯ, МОДАЛЬНОЕ ОКНО НА ДОБАВЛЕНИЕ И НА ПРОСМОТР
 
 // модальное окно с просмотром картинки
 const popupImage = document.querySelector('.popup_image')
 const popupPhoto = popupImage.querySelector('.popup__photo')
 const popupTitle = popupImage.querySelector('.popup__sightseeing')
 const closeImageButton = popupImage.querySelector('.popup__close-button')
-const openPopupImage = () => popupImage.classList.add('popup_opened')
-const closePopupImage = () => popupImage.classList.remove('popup_opened')
-closeImageButton.addEventListener('click', () => closePopupImage())
+
+closeImageButton.addEventListener('click', () => closePopup(popupImage))
 
 
 // функция создания карточки
@@ -73,8 +76,9 @@ function addCard(name, link) {
   // устанавливаем слушатель события на картинку, открываем ее в попапе
   imageElement.addEventListener('click', function() {
     popupPhoto.src = link
+    popupPhoto.alt = name
     popupTitle.textContent = name
-    openPopupImage()
+    openPopup(popupImage)
   });
 
   const likeButton = cardElement.querySelector('.card__heart-button') //находим кнопку лайка
@@ -100,10 +104,8 @@ initialCards.forEach((item) => cardsList.prepend(addCard(item.name, item.link)))
 const popupAdd = document.querySelector('.popup_add-card')
 const addButton = profile.querySelector('.profile__add-button')
 const closeAddButton = popupAdd.querySelector('.popup__close-button')
-const openPopupAdd = () => popupAdd.classList.add('popup_opened')
-const closePopupAdd = () => popupAdd.classList.remove('popup_opened')
-addButton.addEventListener('click', () => openPopupAdd())
-closeAddButton.addEventListener('click', () => closePopupAdd())
+addButton.addEventListener('click', () => openPopup(popupAdd))
+closeAddButton.addEventListener('click', () => closePopup(popupAdd))
 
 const addFormElement = document.querySelector('.edit-form_card')
 const cardNameInput = addFormElement.querySelector('.edit-form__input_card-name')
@@ -114,7 +116,7 @@ function addFormSubmitHandler(evt) {
   evt.preventDefault()
 
   cardsList.prepend(addCard(cardNameInput.value, cardLinkInput.value))
-  closePopupAdd()
+  closePopup(popup)
   addFormElement.reset()
 }
 
