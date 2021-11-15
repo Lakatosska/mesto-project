@@ -5,13 +5,13 @@
 
 ### Используемые технологии:
 
-HTML
-CSS
-Flexbox
-Grid Layout
-Media queries
-Popup
-Form
+* HTML
+* CSS
+* Flexbox
+* Grid Layout
+* Media queries
+* Popup
+* Form
 
 Используется методология БЭМ (Nested)
 
