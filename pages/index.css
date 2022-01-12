@@ -46,3 +46,8 @@
 @import url("../blocks/edit-form/__heading/edit-form__heading.css");
 @import url("../blocks/edit-form/__input/edit-form__input.css");
 @import url("../blocks/edit-form/__fieldset/edit-form__fieldset.css");
+
+/*
+@import url("../blocks/edit-form/__input/_type/edit-form__input_type_error.css");
+@import url("../blocks/edit-form/__input-error/edit-form__input-error.css");
+@import url("../blocks/edit-form/__input-error/_active/edit-form__input-error_active.css");

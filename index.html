@@ -62,25 +62,30 @@
 
       <div class="popup popup_profile-edit">
         <div class="popup__container">
-          <form class="edit-form edit-form_profile" name="profile-edit">
+          <form class="edit-form edit-form_profile" name="profile-edit" novalidate>
             <h2 class="edit-form__heading">Редактировать профиль</h2>
 
             <fieldset class="edit-form__fieldset">
-              <input
+              <input id="name-input"
                 type="text"
                 name="profile__name"
                 class="edit-form__input edit-form__input_name"
-                placeholder="Имя"
+                placeholder="Имя" minlength="2" maxlength="40"
                 required
               />
 
-              <input
+              <span class="name-input-error edit-form__input-error edit-form__input-error_type_profile-name"></span>
+
+              <input id="job-input"
                 type="text"
                 name="profile__job"
                 class="edit-form__input edit-form__input_job"
-                placeholder="О себе"
+                placeholder="О себе" minlength="2" maxlength="200"
                 required
               />
+
+              <span class="job-input-error edit-form__input-error edit-form__input-error_type_profile-job"></span>
+
             </fieldset>
 
             <button type="submit" class="popup__submit-button">
@@ -98,7 +103,7 @@
 
       <div class="popup popup_add-card">
         <div class="popup__container">
-          <form class="edit-form edit-form_card" name="new-card">
+          <form class="edit-form edit-form_card" name="new-card" novalidate>
             <h2 class="edit-form__heading">Новое место</h2>
 
             <fieldset class="edit-form__fieldset">
@@ -106,7 +111,7 @@
                 type="text"
                 name="card-name"
                 class="edit-form__input edit-form__input_card-name"
-                placeholder="Название"
+                placeholder="Название" minlength="2" maxlength="30"
                 required
               />
 
@@ -157,7 +162,15 @@
       </li>
     </template>
 
+
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
+
+    <!--
+    <script src="./scripts/validate.js"></script>
+    <script src="./scripts/modal.js"></script>
+    <script src="./scripts/utils.js"></script>
+    -->
+
   </body>
 </html>
