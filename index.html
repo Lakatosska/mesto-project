@@ -60,32 +60,29 @@
         <p class="footer__text">&copy;2021 Mesto Russia</p>
       </footer>
 
-      <div class="popup popup_profile-edit">
+      <div class="popup popup_type_edit-profile">
         <div class="popup__container">
-          <form class="edit-form edit-form_profile" name="profile-edit" novalidate>
-            <h2 class="edit-form__heading">Редактировать профиль</h2>
+          <form class="form form_type_edit-profile" name="edit-profile" novalidate>
+            <h2 class="form__heading">Редактировать профиль</h2>
 
-            <fieldset class="edit-form__fieldset">
+            <fieldset class="form__fieldset">
               <input id="name-input"
                 type="text"
                 name="profile__name"
-                class="edit-form__input edit-form__input_name"
+                class="form__input form__input_type_name"
                 placeholder="Имя" minlength="2" maxlength="40"
                 required
               />
-
-              <span class="name-input-error edit-form__input-error edit-form__input-error_type_profile-name"></span>
+              <span class="form__input-error name-input-error"></span>
 
               <input id="job-input"
                 type="text"
                 name="profile__job"
-                class="edit-form__input edit-form__input_job"
+                class="form__input form__input_type_job"
                 placeholder="О себе" minlength="2" maxlength="200"
                 required
               />
-
-              <span class="job-input-error edit-form__input-error edit-form__input-error_type_profile-job"></span>
-
+              <span class="form__input-error job-input-error"></span>
             </fieldset>
 
             <button type="submit" class="popup__submit-button">
@@ -101,27 +98,29 @@
         </div>
       </div>
 
-      <div class="popup popup_add-card">
+      <div class="popup popup_type_add-card">
         <div class="popup__container">
-          <form class="edit-form edit-form_card" name="new-card" novalidate>
-            <h2 class="edit-form__heading">Новое место</h2>
+          <form class="form form_type_add-card" name="add-card" novalidate>
+            <h2 class="form__heading">Новое место</h2>
 
-            <fieldset class="edit-form__fieldset">
-              <input
+            <fieldset class="form__fieldset">
+              <input id="place-input"
                 type="text"
                 name="card-name"
-                class="edit-form__input edit-form__input_card-name"
+                class="form__input form__input_type_place"
                 placeholder="Название" minlength="2" maxlength="30"
                 required
               />
+              <span class="form__input-error place-input-error"></span>
 
-              <input
+              <input id="link-input"
                 type="url"
                 name="card-link"
-                class="edit-form__input edit-form__input_card-link"
+                class="form__input form__input_type_link"
                 placeholder="Ссылка на картинку"
                 required
               />
+              <span class="form__input-error link-input-error"></span>
             </fieldset>
 
             <button type="submit" class="popup__submit-button">
@@ -138,8 +137,8 @@
       </div>
     </div>
 
-    <div class="popup popup_image">
-      <div class="popup__container popup__container_image">
+    <div class="popup popup_type_image">
+      <div class="popup__container popup__container_type_image">
         <img class="popup__photo" src="" alt=""></img>
         <h2 class="popup__sightseeing"></h2>
         <button

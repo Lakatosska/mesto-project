@@ -2,7 +2,7 @@
 
 const popup = document.querySelector('.popup')
 const profile = document.querySelector('.profile')
-const popupEdit = document.querySelector('.popup_profile-edit')
+const popupEdit = document.querySelector('.popup_type_edit-profile')
 const editButton =  profile.querySelector('.profile__edit-button')
 const closeEditButton =  popupEdit.querySelector('.popup__close-button')
 
@@ -15,11 +15,11 @@ function closePopup(popup) {
 }
 
 // Находим форму в DOM
-const editFormElement = document.querySelector('.edit-form_profile')
+const editFormElement = document.querySelector('.form_type_edit-profile')
 
 // Находим поля формы в DOM
-const nameInput = editFormElement.querySelector('.edit-form__input_name')
-const jobInput = editFormElement.querySelector('.edit-form__input_job')
+const nameInput = editFormElement.querySelector('.form__input_type_name')
+const jobInput = editFormElement.querySelector('.form__input_type_job')
 
 // Выберите элементы, куда должны быть вставлены значения полей
 const profileName = profile.querySelector('.profile__name')
@@ -43,25 +43,13 @@ document.addEventListener('click', function (evt) {
   }
 })
 
-// Закрытие модального окна нажатием на ESC ! пока не работает
+// Закрытие модального окна нажатием на ESC
 document.addEventListener('keydown', function (evt) {
   const openPopup = document.querySelector('.popup_opened')
   if (evt.key === 'Escape') {
     closePopup(openPopup)
   }
 })
-
-/*
-function keyHandler(evt) {
-  if (evt.key === 'Escape') {
-    closePopup(popup)
-  }
-}
-
-popup.addEventListener('keydown', keyHandler)
-
-*/
-
 
 // Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
 function formSubmitHandler (evt) {
@@ -80,7 +68,7 @@ editFormElement.addEventListener('submit', formSubmitHandler)
 // КАРТОЧКИ + КНОПКА ДОБАВЛЕНИЯ И ЗАКРЫТИЯ, МОДАЛЬНОЕ ОКНО НА ДОБАВЛЕНИЕ И НА ПРОСМОТР
 
 // модальное окно с просмотром картинки
-const popupImage = document.querySelector('.popup_image')
+const popupImage = document.querySelector('.popup_type_image')
 const popupPhoto = popupImage.querySelector('.popup__photo')
 const popupTitle = popupImage.querySelector('.popup__sightseeing')
 const closeImageButton = popupImage.querySelector('.popup__close-button')
@@ -129,15 +117,15 @@ initialCards.forEach((item) => cardsList.prepend(addCard(item.name, item.link)))
 
 // ДОБАВЛЕНИЕ КАРТОЧКИ ЧЕРЕЗ МОДАЛЬНОЕ ОКНО
 
-const popupAdd = document.querySelector('.popup_add-card')
+const popupAdd = document.querySelector('.popup_type_add-card')
 const addButton = profile.querySelector('.profile__add-button')
 const closeAddButton = popupAdd.querySelector('.popup__close-button')
 addButton.addEventListener('click', () => openPopup(popupAdd))
 closeAddButton.addEventListener('click', () => closePopup(popupAdd))
 
-const addFormElement = document.querySelector('.edit-form_card')
-const cardNameInput = addFormElement.querySelector('.edit-form__input_card-name')
-const cardLinkInput = addFormElement.querySelector('.edit-form__input_card-link')
+const addFormElement = document.querySelector('.form_type_add-card')
+const cardNameInput = addFormElement.querySelector('.form__input_type_place')
+const cardLinkInput = addFormElement.querySelector('.form__input_type_link')
 
 // Обработчик «отправки» формы, введенные данные прогоняются через функцию "создания" и "добавления", модальное окно закрывается, поля очищаются
 function addFormSubmitHandler(evt) {
@@ -154,150 +142,86 @@ addFormElement.addEventListener('submit', addFormSubmitHandler)
 
 
 //VALIDATE.JS
-// Вынесем все необходимые элементы формы в константы
-// Находим форму в DOM
-/* const editFormElement = document.querySelector('.edit-form_profile') */
 
-// Находим поля формы в DOM
-const editFormInput = editFormElement.querySelector('.edit-form__input')
-/* const nameInput = editFormElement.querySelector('.edit-form__input_name')
-const jobInput = editFormElement.querySelector('.edit-form__input_job') */
-
-editFormElement.addEventListener('submit', function (evt) {
-  // Отменим стандартное поведение
-  evt.preventDefault();
-});
-
-// Слушатель события input
-editFormInput.addEventListener('input', function (evt) {
-  // Выведем в консоль значение свойства validity.valid поля ввода,
-  // на котором слушаем событие input
-  console.log(evt.target.validity.valid);
-});
-
-const editFormError = editFormElement.querySelector(`.${editFormInput.id}-error`);
-
-// Функция, которая добавляет класс с ошибкой
-// Передадим текст ошибки вторым параметром
-const showInputError = (editFormElement, editFormInput, errorMessage) => {
-  // Находим элемент ошибки внутри самой функции
-  const editFormError = editFormElement.querySelector(`.${editFormInput.id}-error`);
-
-  editFormInput.classList.add('edit-form__input_type_error');
-  // Заменим содержимое span с ошибкой на переданный параметр
-  editFormError.textContent = errorMessage;
-  // Показываем сообщение об ошибке
-  editFormError.classList.add('edit-form__input-error_active');
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
 };
 
-// Функция, которая удаляет класс с ошибкой
-const hideInputError = (editFormElement, editFormInput) => {
-  // Находим элемент ошибки
-  const editFormError = editFormElement.querySelector(`.${editFormInput.id}-error`);
+const showInputError = (inputElement, inputErrorClass, errorElement, errorClass, errorMessage) => {
+  inputElement.classList.add(inputErrorClass)
+  errorElement.classList.add(errorClass)
+  errorElement.textContent = errorMessage
+}
 
-  editFormInput.classList.remove('edit-form__input_type_error');
-  // Скрываем сообщение об ошибке
-  editFormError.remove('edit-form__input-error_active');
-  // Очистим ошибку
-  editFormError.textContent = '';
-};
+const hideInputError = (inputElement, inputErrorClass, errorElement, errorClass) => {
+  inputElement.classList.remove(inputErrorClass)
+  errorElement.classList.remove(errorClass)
+  errorElement.textContent = ""
+}
 
-// Функция, которая проверяет валидность поля
-// Функция isValid теперь принимает formElement и inputElement,
-// а не берёт их из внешней области видимости
-const isValid = (editFormElement, editFormInput) => {
-  if (!editFormInput.validity.valid) {
-    // Если поле не проходит валидацию, покажем ошибку
-    // Передадим сообщение об ошибке вторым аргументом
-    // showInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-    showInputError(editFormElement, editFormInput, editFormInput.validationMessage);
+const checkInputValidity = (formElement, inputElement, inputErrorClass, errorClass) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+
+  if (inputElement.validity.valid) {
+    hideInputError(inputElement, inputErrorClass, errorElement, errorClass)
   } else {
-    // Если проходит, скроем
-    // hideInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-    hideInputError(editFormElement, editFormInput);
+    showInputError(inputElement, inputErrorClass, errorElement, errorClass, inputElement.validationMessage)
   }
-};
+}
 
-editFormElement.addEventListener('submit', function (evt) {
-  // Отменим стандартное поведение по сабмиту
-  evt.preventDefault();
-});
-
-//добавим слушатель событий всем полям ввода внутри формы
-const setEventListeners = (editFormElement) => {
-  // Находим все поля внутри формы,
-  // сделаем из них массив методом Array.from
-  const inputList = Array.from(editFormElement.querySelectorAll('.edit-form__input'));
-
-  // Найдём в текущей форме кнопку отправки
-  const buttonSubmitElement = formElement.querySelector('.popup__submit-button');
-
-    // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
-    // нужно для того, чтобы кнопка сразу была неактивной
-    toggleButtonState(inputList, buttonSubmitElement);
-
-
-  // Обойдём все элементы полученной коллекции
-  inputList.forEach((editFormInput) => {
-    // каждому полю добавим обработчик события input
-    editFormInput.addEventListener('input', () => {
-      // Внутри колбэка вызовем isValid,
-      // передав ей форму и проверяемый элемент
-      isValid(editFormElement, editFormInput);
-
-      // Вызовем toggleButtonState и передадим ей массив полей и кнопку
-      toggleButtonState(inputList, buttonSubmitElement);
-    });
-  });
-};
-
-//найдем все формы в DOM и вызовем для всех setEventListeners
-const enableValidation = () => {
-  // Найдём все формы с указанным классом в DOM,
-  // сделаем из них массив методом Array.from
-  const formList = Array.from(document.querySelectorAll('.edit-form'));
-
-  // Переберём полученную коллекцию
-  formList.forEach((editFormElement) => {
-    editFormElement.addEventListener('submit', (evt) => {
-      // У каждой формы отменим стандартное поведение
-      evt.preventDefault();
-    });
-
-    // Для каждой формы вызовем функцию setEventListeners,
-    // передав ей элемент формы
-    setEventListeners(editFormElement);
-  });
-};
-
-// Вызовем функцию
-enableValidation();
-
-// Функция проверяет наличие невалидного поля (чтобы потом настроить статус кнопки)
-// Функция принимает массив полей
 const hasInvalidInput = (inputList) => {
-  // проходим по этому массиву методом some
-  return inputList.some((editFormInput) => {
-        // Если поле не валидно, колбэк вернёт true
-    // Обход массива прекратится и вся фунцкция
-    // hasInvalidInput вернёт true
-
-    return !editFormInput.validity.valid;
+  return inputList.some(inputElement => {
+    return !inputElement.validity.valid
   })
-};
+}
 
-// Функция для вкл-выкл кнопки принимает массив полей ввода
-// и элемент кнопки, состояние которой нужно менять
-const toggleButtonState = (inputList, buttonSubmitElement) => {
-  // Если есть хотя бы один невалидный инпут
+const disableButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.classList.add(inactiveButtonClass)
+  buttonElement.disabled = true
+}
+
+const enableButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.classList.remove(inactiveButtonClass)
+  buttonElement.disabled = false
+}
+
+const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiveButtonClass) => {
+  const buttonElement = formElement.querySelector(submitButtonSelector)
+
   if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
-    buttonSubmitElement.classList.add('form__submit_inactive');
+    disableButton(buttonElement, inactiveButtonClass)
   } else {
-        // иначе сделай кнопку активной
-    buttonSubmitElement.classList.remove('form__submit_inactive');
+    enableButton(buttonElement, inactiveButtonClass)
   }
-};
+}
+
+const setEventListeners = (formElement, { inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass }) => {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector))
+  inputList.forEach(inputElement => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement, inputErrorClass, errorClass)
+      toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass)
+    })
+  })
+
+  toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass)
+}
+
+const enableValidation = ({ formSelector, ...rest}) => {
+  const formList = Array.from(document.querySelectorAll(formSelector))
+  formList.forEach(formElement => {
+    formElement.addEventListener('submit', (event) => {
+      event.preventDefault()
+    })
+
+    setEventListeners(formElement, rest)
+  })
+}
+
+enableValidation(validationConfig);
 
