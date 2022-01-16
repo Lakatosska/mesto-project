@@ -1,4 +1,5 @@
 import './pages/index.css';
+import { initialCards } from './components/cards';
 
 // ПРОФИЛЬ. ОТКРЫТИЕ И ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА, РЕДАКТИРОВАНИЕ
 
