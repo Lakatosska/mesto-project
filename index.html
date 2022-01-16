@@ -66,23 +66,27 @@
             <h2 class="form__heading">Редактировать профиль</h2>
 
             <fieldset class="form__fieldset">
-              <input id="name-input"
-                type="text"
-                name="profile__name"
-                class="form__input form__input_type_name"
-                placeholder="Имя" minlength="2" maxlength="40"
-                required
-              />
-              <span class="form__input-error name-input-error"></span>
+              <label for="name" class="form__field">
+                <input id="name-input"
+                  type="text"
+                  name="profile__name"
+                  class="form__input form__input_type_name"
+                  placeholder="Имя" minlength="2" maxlength="40"
+                  required
+                />
+                <span class="form__input-error name-input-error"></span>
+              </label>
 
-              <input id="job-input"
-                type="text"
-                name="profile__job"
-                class="form__input form__input_type_job"
-                placeholder="О себе" minlength="2" maxlength="200"
-                required
-              />
-              <span class="form__input-error job-input-error"></span>
+              <label for="job" class="form__field">
+                <input id="job-input"
+                  type="text"
+                  name="profile__job"
+                  class="form__input form__input_type_job"
+                  placeholder="О себе" minlength="2" maxlength="200"
+                  required
+                />
+                <span class="form__input-error job-input-error"></span>
+              </label>
             </fieldset>
 
             <button type="submit" class="popup__submit-button">
@@ -104,23 +108,27 @@
             <h2 class="form__heading">Новое место</h2>
 
             <fieldset class="form__fieldset">
-              <input id="place-input"
-                type="text"
-                name="card-name"
-                class="form__input form__input_type_place"
-                placeholder="Название" minlength="2" maxlength="30"
-                required
-              />
-              <span class="form__input-error place-input-error"></span>
+              <label for="place" class="form__field">
+                <input id="place-input"
+                  type="text"
+                  name="card-name"
+                  class="form__input form__input_type_place"
+                  placeholder="Название" minlength="2" maxlength="30"
+                  required
+                />
+                <span class="form__input-error place-input-error"></span>
+              </label>
 
-              <input id="link-input"
-                type="url"
-                name="card-link"
-                class="form__input form__input_type_link"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <span class="form__input-error link-input-error"></span>
+              <label for="link" class="form__field">
+                <input id="link-input"
+                  type="url"
+                  name="card-link"
+                  class="form__input form__input_type_link"
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span class="form__input-error link-input-error"></span>
+              </label>
             </fieldset>
 
             <button type="submit" class="popup__submit-button">

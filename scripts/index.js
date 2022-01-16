@@ -150,7 +150,7 @@ const validationConfig = {
   inactiveButtonClass: 'popup__submit-button_disabled',
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
-};
+}
 
 const showInputError = (inputElement, inputErrorClass, errorElement, errorClass, errorMessage) => {
   inputElement.classList.add(inputErrorClass)
@@ -180,28 +180,21 @@ const hasInvalidInput = (inputList) => {
   })
 }
 
-const disableButton = (buttonElement, inactiveButtonClass) => {
-  buttonElement.classList.add(inactiveButtonClass)
-  buttonElement.disabled = true
-}
-
-const enableButton = (buttonElement, inactiveButtonClass) => {
-  buttonElement.classList.remove(inactiveButtonClass)
-  buttonElement.disabled = false
-}
-
 const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiveButtonClass) => {
   const buttonElement = formElement.querySelector(submitButtonSelector)
 
   if (hasInvalidInput(inputList)) {
-    disableButton(buttonElement, inactiveButtonClass)
+    buttonElement.classList.add(inactiveButtonClass)
+    buttonElement.disabled = true
   } else {
-    enableButton(buttonElement, inactiveButtonClass)
+    buttonElement.classList.remove(inactiveButtonClass)
+    buttonElement.disabled = false
   }
 }
 
 const setEventListeners = (formElement, { inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass }) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector))
+
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, inputErrorClass, errorClass)
@@ -214,9 +207,10 @@ const setEventListeners = (formElement, { inputSelector, inputErrorClass, errorC
 
 const enableValidation = ({ formSelector, ...rest}) => {
   const formList = Array.from(document.querySelectorAll(formSelector))
+
   formList.forEach(formElement => {
-    formElement.addEventListener('submit', (event) => {
-      event.preventDefault()
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault()
     })
 
     setEventListeners(formElement, rest)

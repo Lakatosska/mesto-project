@@ -18,24 +18,6 @@
   }
 }
 
-.form__input::-webkit-input-placeholder {
-  color: rgba(196, 196, 196, 1);
-  opacity: 1;
-  font-family: "Inter";
-}
-
-.form__input::-moz-placeholder {
-  color: rgba(196, 196, 196, 1);
-  opacity: 1;
-  font-family: "Inter";
-}
-
-.form__input::-ms-input-placeholder {
-  color: rgba(196, 196, 196, 1);
-  opacity: 1;
-  font-family: "Inter", "Arial", sans-serif;
-}
-
 .form__input::placeholder {
   color: rgba(196, 196, 196, 1);
   opacity: 1;
