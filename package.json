@@ -1,0 +1,26 @@
+{
+  "name": "mesto-project",
+  "version": "1.0.0",
+  "description": "Дизайн-проект сервиса по размещению фотографий и обмену лайками Mesto. Учебная работа курса \"Веб-разработчик плюс\" Яндекс.Практикума.\r Реализована адаптивная верстка под самые распространенные разрешения экранов (от 320px). \r Дизайн-проект был представлен в Figma.  \r Добавлена функциональность на Javascript.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lakatosska/mesto-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lakatosska/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Lakatosska/mesto-project#readme",
+  "devDependencies": {
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3"
+  }
+}
