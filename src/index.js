@@ -1,3 +1,5 @@
+import './pages/index.css';
+
 // ПРОФИЛЬ. ОТКРЫТИЕ И ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА, РЕДАКТИРОВАНИЕ
 
 const popup = document.querySelector('.popup')
