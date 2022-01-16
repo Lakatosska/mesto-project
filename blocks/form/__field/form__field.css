@@ -1,0 +1,6 @@
+.form__field {
+  min-height: 56px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}

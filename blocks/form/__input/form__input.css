@@ -1,0 +1,33 @@
+.form__input {
+  display: block;
+  font-size: 14px;
+  line-height: 1.21;
+  font-weight: 400;
+  width: 358px;
+  height: 27px;
+  border: 0;
+  padding: 0 0 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+@media screen and (max-width: 635px) {
+  .form__input {
+    width: 238px;
+  }
+}
+
+.form__input::placeholder {
+  color: rgba(196, 196, 196, 1);
+  opacity: 1;
+  font-family: "Inter";
+}
+
+.form__input:focus {
+  outline-color: grey;
+  opacity: 1;
+  outline-width: 1px;
+}
+
+
