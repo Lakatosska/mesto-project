@@ -1,4 +1,6 @@
-export const initialCards = [
+import { openPopup, popupImage, popupPhoto, popupTitle } from "./modal.js"
+
+const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -24,3 +26,38 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+// функция создания карточки
+function addCard(name, link) {
+  const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
+
+  const imageElement = cardElement.querySelector('.card__photo') // находим элемент картинки
+  const titleElement = cardElement.querySelector('.card__sightseeing') // находим элемент названия
+
+  // связываем аргументы функции addCard с атрибутами картинки
+  imageElement.src = link
+  imageElement.alt = name
+  titleElement.textContent = name
+
+  // устанавливаем слушатель события на картинку, открываем ее в попапе
+  imageElement.addEventListener('click', function() {
+    popupPhoto.src = link
+    popupPhoto.alt = name
+    popupTitle.textContent = name
+    openPopup(popupImage)
+  });
+
+  const likeButton = cardElement.querySelector('.card__heart-button') //находим кнопку лайка
+  const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
+
+  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
+  // устанавливаем слушатель события на кнопку лайка
+
+  trashButton.addEventListener('click', () => cardElement.remove())
+  // устанавливаем слушатель события на кнопку удаления
+
+  return cardElement //возвращаем готовую карточку
+}
+
+export { initialCards, addCard }
