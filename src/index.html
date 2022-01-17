@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
 
     <title>Проект Mesto</title>
     <meta name="description" content="аккаунт в социальной сети Mesto" />
@@ -19,7 +18,7 @@
       <header class="header">
         <img
           class="header__logo"
-          src="./images/header-logo.svg"
+          src="<%=require('./images/header-logo.svg')%>"
           alt="логотип сервиса Место (Россия)"
         />
       </header>
@@ -29,7 +28,7 @@
           <div class="profile__info">
             <img
               class="profile__avatar"
-              src="./images/header-avatar.jpg"
+              src="<%=require('./images/header-avatar.jpg')%>"
               alt="фотография владельца аккаунта"
             />
 
@@ -168,16 +167,6 @@
         </div>
       </li>
     </template>
-
-
-    <script src="./scripts/cards.js"></script>
-    <script src="./scripts/index.js"></script>
-
-    <!--
-    <script src="./scripts/validate.js"></script>
-    <script src="./scripts/modal.js"></script>
-    <script src="./scripts/utils.js"></script>
-    -->
 
   </body>
 </html>
