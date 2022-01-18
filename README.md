@@ -23,7 +23,7 @@
 * [Вёрстка](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4)
 * [Валидация](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6)
 
-* [Ссылка на проект на GitHub Pages](https://lakatosska.github.io/mesto-project)
+[Ссылка на проект на GitHub Pages](https://lakatosska.github.io/mesto-project)
 
 
 
