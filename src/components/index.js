@@ -1,7 +1,7 @@
-import './pages/index.css'
-import { initialCards, addCard } from './components/cards.js'
-import { enableValidation } from './components/validate.js'
-import { openPopup, closePopup} from './components/modal.js'
+import '../pages/index.css'
+import { initialCards, addCard } from './cards'
+import { enableValidation } from './validate'
+import { openPopup, closePopup} from './modal'
 
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
