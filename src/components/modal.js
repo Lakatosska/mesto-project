@@ -8,11 +8,18 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeByEscape)
 }
 
-// Закрытие модального окна по клику на оверлей
-document.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target)
-  }
+// Закрытие модального окна по клику на крестик и на оверлей
+const popups = document.querySelectorAll('.popup')
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
 })
 
 // Закрытие модального окна нажатием на ESC
@@ -27,10 +34,5 @@ function closeByEscape(evt) {
 const popupImage = document.querySelector('.popup_type_image')
 const popupPhoto = popupImage.querySelector('.popup__photo')
 const popupTitle = popupImage.querySelector('.popup__sightseeing')
-const closeImageButton = popupImage.querySelector('.popup__close-button')
 
-// слушатель - закрытие модального окна с картинкой
-closeImageButton.addEventListener('click', () => closePopup(popupImage))
-
-
-export { openPopup, closePopup, popupImage, popupPhoto, popupTitle, closeImageButton }
+export { openPopup, closePopup, popupImage, popupPhoto, popupTitle }
