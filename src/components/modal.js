@@ -1,9 +1,11 @@
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeByEscape)
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened')
+  document.removeEventListener('keydown', closeByEscape)
 }
 
 // Закрытие модального окна по клику на оверлей
@@ -14,12 +16,12 @@ document.addEventListener('click', function (evt) {
 })
 
 // Закрытие модального окна нажатием на ESC
-document.addEventListener('keydown', function (evt) {
-  const openPopup = document.querySelector('.popup_opened')
+function closeByEscape(evt) {
   if (evt.key === 'Escape') {
-    closePopup(openPopup)
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
   }
-})
+}
 
 // модальное окно с просмотром картинки
 const popupImage = document.querySelector('.popup_type_image')

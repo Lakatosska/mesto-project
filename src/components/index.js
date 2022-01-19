@@ -33,7 +33,7 @@ editButton.addEventListener('click', () => {
 closeEditButton.addEventListener('click', () => closePopup(popupProfile))
 
 // Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
-function formSubmitHandler (evt) {
+function handleProfileFormSubmit (evt) {
   evt.preventDefault()
 
   profileName.textContent = nameInput.value
@@ -42,7 +42,7 @@ function formSubmitHandler (evt) {
 }
 
 //  Обработчик для “submit” формы редактирования профиля
-editFormElement.addEventListener('submit', formSubmitHandler)
+editFormElement.addEventListener('submit', handleProfileFormSubmit)
 
 
 // ДОБАВЛЕНИЕ КАРТОЧЕК "ИЗ КОРОБКИ"
@@ -64,7 +64,7 @@ const cardNameInput = addFormElement.querySelector('.form__input_type_place')
 const cardLinkInput = addFormElement.querySelector('.form__input_type_link')
 
 // Обработчик «отправки» формы, введенные данные прогоняются через функцию "создания" и "добавления", модальное окно закрывается, поля очищаются
-function addFormSubmitHandler(evt) {
+function handleAddCardFormSubmit(evt) {
   evt.preventDefault()
 
   cardsList.prepend(addCard(cardNameInput.value, cardLinkInput.value))
@@ -73,7 +73,7 @@ function addFormSubmitHandler(evt) {
 }
 
 // Обработчик для “submit” формы добавления карточки
-addFormElement.addEventListener('submit', addFormSubmitHandler)
+addFormElement.addEventListener('submit', handleAddCardFormSubmit)
 
 
 // ВАЛИДАЦИЯ
