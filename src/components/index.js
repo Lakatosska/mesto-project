@@ -62,6 +62,10 @@ function handleAddCardFormSubmit(evt) {
   cardsList.prepend(addCard(cardNameInput.value, cardLinkInput.value))
   closePopup(popupAddCard)
   addFormElement.reset()
+
+  const buttonElement = popupAddCard.querySelector('.popup__submit-button')
+  buttonElement.disabled = true
+  buttonElement.classList.add('popup__submit-button_disabled')
 }
 
 // Обработчик для “submit” формы добавления карточки
