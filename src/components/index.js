@@ -6,11 +6,12 @@ import { openPopup, closePopup} from './modal.js'
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
-const popup = document.querySelector('.popup')
+//const popup = document.querySelector('.popup')
+
 const profile = document.querySelector('.profile')
-const popupEdit = document.querySelector('.popup_type_edit-profile')
+const popupProfile = document.querySelector('.popup_type_edit-profile')
 const editButton =  profile.querySelector('.profile__edit-button')
-const closeEditButton =  popupEdit.querySelector('.popup__close-button')
+const closeEditButton =  popupProfile.querySelector('.popup__close-button')
 
 // Находим форму и ее поля в DOM
 const editFormElement = document.querySelector('.form_type_edit-profile')
@@ -23,13 +24,13 @@ const profileJob = profile.querySelector('.profile__job')
 
 // Открытие модального окна, поля заполняются значениями, указанными в профиле
 editButton.addEventListener('click', () => {
-  openPopup(popupEdit)
+  openPopup(popupProfile)
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
 })
 
 // Закрытие модального окна, введенные данные не сохраняются
-closeEditButton.addEventListener('click', () => closePopup(popup))
+closeEditButton.addEventListener('click', () => closePopup(popupProfile))
 
 // Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
 function formSubmitHandler (evt) {
@@ -37,7 +38,7 @@ function formSubmitHandler (evt) {
 
   profileName.textContent = nameInput.value
   profileJob.textContent = jobInput.value
-  closePopup(popupEdit)
+  closePopup(popupProfile)
 }
 
 //  Обработчик для “submit” формы редактирования профиля
@@ -52,11 +53,11 @@ initialCards.forEach((item) => cardsList.prepend(addCard(item.name, item.link)))
 
 // ДОБАВЛЕНИЕ КАРТОЧКИ ЧЕРЕЗ МОДАЛЬНОЕ ОКНО
 
-const popupAdd = document.querySelector('.popup_type_add-card')
+const popupAddCard = document.querySelector('.popup_type_add-card')
 const addButton = profile.querySelector('.profile__add-button')
-const closeAddButton = popupAdd.querySelector('.popup__close-button')
-addButton.addEventListener('click', () => openPopup(popupAdd))
-closeAddButton.addEventListener('click', () => closePopup(popupAdd))
+const closeAddButton = popupAddCard.querySelector('.popup__close-button')
+addButton.addEventListener('click', () => openPopup(popupAddCard))
+closeAddButton.addEventListener('click', () => closePopup(popupAddCard))
 
 const addFormElement = document.querySelector('.form_type_add-card')
 const cardNameInput = addFormElement.querySelector('.form__input_type_place')
@@ -67,7 +68,7 @@ function addFormSubmitHandler(evt) {
   evt.preventDefault()
 
   cardsList.prepend(addCard(cardNameInput.value, cardLinkInput.value))
-  closePopup(popupAdd)
+  closePopup(popupAddCard)
   addFormElement.reset()
 }
 
