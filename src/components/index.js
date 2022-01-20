@@ -94,14 +94,30 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
   headers: {
     authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
   }
-})
+  })
   .then(res => res.json())
   .then((result) => {
     console.log(result);
   });
 
+//редактируем данные пользователя
+
+
+
+fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: profileName,
+    about: profileJob
+  })
+});
+
 // карточки с сервера
-  return fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
+  fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
   headers: {
     authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
   }
