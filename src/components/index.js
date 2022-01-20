@@ -1,7 +1,8 @@
 import '../pages/index.css'
 import { initialCards, addCard } from './cards.js'
 import { enableValidation } from './validate.js'
-import { openPopup, closePopup} from './modal.js'
+import { openPopup, closePopup } from './modal.js'
+import { config } from './api.js'
 
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
@@ -85,3 +86,27 @@ const validationConfig = {
 
 enableValidation(validationConfig);
 
+
+// СЕРВЕР
+
+// данные профиля с сервера
+fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
+  headers: {
+    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
+
+// карточки с сервера
+  return fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
+  headers: {
+    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
