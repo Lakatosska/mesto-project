@@ -1,5 +1,5 @@
 import '../pages/index.css'
-import { initialCards, addCard } from './cards.js'
+import { addCard } from './cards.js'
 import { enableValidation } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
 import { config } from './api.js'
@@ -40,10 +40,12 @@ function handleProfileFormSubmit (evt) {
 editFormElement.addEventListener('submit', handleProfileFormSubmit)
 
 
-// ДОБАВЛЕНИЕ КАРТОЧЕК "ИЗ КОРОБКИ"
+// ДОБАВЛЕНИЕ КАРТОЧЕК
 
+/*
 const cardsList = document.querySelector('.cards__list')
-initialCards.forEach((item) => cardsList.prepend(addCard(item.name, item.link)))
+getInitialCards.forEach((item) => cardsList.prepend(addCard(item.name, item.link))) */
+
 
 
 // ДОБАВЛЕНИЕ КАРТОЧКИ ЧЕРЕЗ МОДАЛЬНОЕ ОКНО
@@ -105,6 +107,7 @@ fetch(`${config.baseUrl}/users/me`, {
     console.log(result);
 });
 
+/*
 
 //редактируем данные пользователя
 fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
@@ -139,9 +142,11 @@ getProfileData()
 .catch((err) => {
   console.log(err)
 })
+*/
 
 // аватар
 const avatar = document.querySelector('.profile__avatar')
+
 
 
 /*
@@ -155,7 +160,39 @@ const changeAvatar = (avatar) => {
   })
   .then(checkResponse)
 }
+
+
+function updateAvatar(link){
+  const body = JSON.stringify({avatar:link});
+  return sendRequest(`${config.baseUrl}/users/me/avatar`, 'PATCH', body);
+}
+
+updateAvatar("https://live.staticflickr.com/65535/51835354195_1f5cf12686_m.jpg")
 */
+
+// карточки с сервера
+
+const cardsList = document.querySelector('.cards__list')
+
+function renderCard(cardElement) {
+  cardsList.prepend(cardElement)
+}
+
+const getInitialCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+  .then (cards => {
+    cards.forEach(card => renderCard(addCard(card.name, card.link)))
+  })
+}
+
+getInitialCards()
+
+
+
+
 
 // данные профилей когорты с сервера - вывожу в консоль
 fetch('https://nomoreparties.co/v1/plus-cohort-6/users/', {
@@ -180,12 +217,14 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
     console.log(result);
 });
 
+/*
 const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
   .then(checkResponse)
 }
+*/
 
 const addNewCard = (name, link) => {
   return fetch(`${config.baseUrl}/cards`, {

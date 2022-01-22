@@ -1,5 +1,6 @@
 import { openPopup, popupImage, popupPhoto, popupTitle } from "./modal.js"
 
+/*
 const initialCards = [
   {
     name: 'Архыз',
@@ -26,6 +27,26 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+*/
+
+
+const getInitialCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+  .then (cards => {
+    cards.forEach(card => renderCard(addCard(card.name, card.link)))
+  })
+}
+
+const cardsList = document.querySelector('.cards__list')
+
+function renderCard(cardElement) {
+  cardsList.prepend(cardElement)
+}
+
+
 
 // функция создания карточки
 function addCard(name, link) {
@@ -60,4 +81,4 @@ function addCard(name, link) {
   return cardElement //возвращаем готовую карточку
 }
 
-export { initialCards, addCard }
+export { addCard }
