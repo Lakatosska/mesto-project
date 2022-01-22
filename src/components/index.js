@@ -39,15 +39,6 @@ function handleProfileFormSubmit (evt) {
 //  Обработчик для “submit” формы редактирования профиля
 editFormElement.addEventListener('submit', handleProfileFormSubmit)
 
-
-// ДОБАВЛЕНИЕ КАРТОЧЕК
-
-/*
-const cardsList = document.querySelector('.cards__list')
-getInitialCards.forEach((item) => cardsList.prepend(addCard(item.name, item.link))) */
-
-
-
 // ДОБАВЛЕНИЕ КАРТОЧКИ ЧЕРЕЗ МОДАЛЬНОЕ ОКНО
 
 const popupAddCard = document.querySelector('.popup_type_add-card')
@@ -58,17 +49,41 @@ const addFormElement = document.querySelector('.form_type_add-card')
 const cardNameInput = addFormElement.querySelector('.form__input_type_place')
 const cardLinkInput = addFormElement.querySelector('.form__input_type_link')
 
+
+const postNewCard = (name, link) => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link
+    })
+  })
+  .then(checkResponse)
+}
+postNewCard()
+
 // Обработчик «отправки» формы, введенные данные прогоняются через функцию "создания" и "добавления", модальное окно закрывается, поля очищаются
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault()
 
-  cardsList.prepend(addCard(cardNameInput.value, cardLinkInput.value))
+  postNewCard(cardNameInput.value, cardLinkInput.value)
+
+  .then((res) => {
+    renderCard(res)
+  })
+
   closePopup(popupAddCard)
   addFormElement.reset()
 
   const buttonElement = popupAddCard.querySelector('.popup__submit-button')
   buttonElement.disabled = true
   buttonElement.classList.add('popup__submit-button_disabled')
+
+  .catch((err) => {
+    console.log(err)
+  })
+
 }
 
 // Обработчик для “submit” формы добавления карточки
