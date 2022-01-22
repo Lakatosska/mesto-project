@@ -89,21 +89,24 @@ enableValidation(validationConfig);
 
 // СЕРВЕР
 
-// данные профиля с сервера
-fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
-  headers: {
-    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json()
   }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+// данные профиля с сервера
+fetch(`${config.baseUrl}/users/me`, {
+  headers: config.headers
   })
   .then(res => res.json())
   .then((result) => {
     console.log(result);
-  });
+});
+
 
 //редактируем данные пользователя
-
-
-
 fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
   method: 'PATCH',
   headers: {
@@ -112,12 +115,62 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
   },
   body: JSON.stringify({
     name: profileName,
-    about: profileJob
+    about: profileJob,
+    avatar: avatar
   })
 });
 
-// карточки с сервера
-  fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
+const getProfileData = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+}
+
+getProfileData()
+.then((result) => {
+  console.log(result)
+  nameInput.value = result.name
+  jobInput.value = result.about
+  //avatar.src = result.avatar
+  profileName.textContent = result.name
+  profileJob.textContent = result.about
+})
+.catch((err) => {
+  console.log(err)
+})
+
+// аватар
+const avatar = document.querySelector('.profile__avatar')
+
+
+/*
+const changeAvatar = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar `, {
+    method: 'PATCH',
+    headers:config.headers,
+    body: JSON.stringify({
+      avatar: avatar
+    })
+  })
+  .then(checkResponse)
+}
+*/
+
+// данные профилей когорты с сервера - вывожу в консоль
+fetch('https://nomoreparties.co/v1/plus-cohort-6/users/', {
+  headers: {
+    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
+  }
+  })
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+});
+
+
+// карточки с сервера - вывожу в консоль
+fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
   headers: {
     authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
   }
@@ -125,4 +178,36 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
   .then(res => res.json())
   .then((result) => {
     console.log(result);
-  });
+});
+
+const getInitialCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+}
+
+const addNewCard = (name, link) => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link
+    })
+  })
+  .then(checkResponse)
+}
+
+
+
+/*
+ function createProfileData(profileData) {
+   return `
+    <div class="profile__item">
+      <h1 class="profile__name">${profileData.profileName}</h1>
+      <p class="profile__job">${profileData.profileJob}</p>
+    </div>
+   `
+ }
+*/
