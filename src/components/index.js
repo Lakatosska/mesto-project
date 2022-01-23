@@ -137,7 +137,10 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
     avatar: avatar
   })
 });
+*/
 
+
+// получаем данные профиля с сервера (пока кроме аватара)
 const getProfileData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
@@ -147,9 +150,9 @@ const getProfileData = () => {
 
 getProfileData()
 .then((result) => {
-  console.log(result)
-  nameInput.value = result.name
-  jobInput.value = result.about
+  //console.log(result)
+  //nameInput.value = result.name
+  //jobInput.value = result.about
   //avatar.src = result.avatar
   profileName.textContent = result.name
   profileJob.textContent = result.about
@@ -157,7 +160,7 @@ getProfileData()
 .catch((err) => {
   console.log(err)
 })
-*/
+
 
 // аватар
 const avatar = document.querySelector('.profile__avatar')
@@ -185,13 +188,11 @@ function updateAvatar(link){
 updateAvatar("https://live.staticflickr.com/65535/51835354195_1f5cf12686_m.jpg")
 */
 
+
 // карточки с сервера
 
 const cardsList = document.querySelector('.cards__list')
-
-function renderCard(cardElement) {
-  cardsList.prepend(cardElement)
-}
+const renderCard = (cardElement) => cardsList.append(cardElement)
 
 const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
@@ -231,27 +232,6 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
   .then((result) => {
     console.log(result);
 });
-
-/*
-const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-  .then(checkResponse)
-}
-*/
-
-const addNewCard = (name, link) => {
-  return fetch(`${config.baseUrl}/cards`, {
-    method: 'POST',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      link: link
-    })
-  })
-  .then(checkResponse)
-}
 
 
 
