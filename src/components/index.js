@@ -63,6 +63,19 @@ const postNewCard = (name, link) => {
 }
 postNewCard()
 
+
+// удалить карточку
+const deleteCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then(checkResponse)
+}
+deleteCard()
+//f.ex. deleteCard('61ef120d5d721101810ab019')
+
+
 // Обработчик «отправки» формы, модальное окно закрывается, поля очищаются
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault()
@@ -231,13 +244,3 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
 
 
 
-/*
- function createProfileData(profileData) {
-   return `
-    <div class="profile__item">
-      <h1 class="profile__name">${profileData.profileName}</h1>
-      <p class="profile__job">${profileData.profileJob}</p>
-    </div>
-   `
- }
-*/
