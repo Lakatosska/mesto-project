@@ -63,7 +63,7 @@ const postNewCard = (name, link) => {
 }
 postNewCard()
 
-// Обработчик «отправки» формы, введенные данные прогоняются через функцию "создания" и "добавления", модальное окно закрывается, поля очищаются
+// Обработчик «отправки» формы, модальное окно закрывается, поля очищаются
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault()
 
@@ -196,7 +196,7 @@ const getInitialCards = () => {
   })
   .then(checkResponse)
   .then (cards => {
-    cards.forEach(card => renderCard(addCard(card.name, card.link)))
+    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes)))
   })
 }
 

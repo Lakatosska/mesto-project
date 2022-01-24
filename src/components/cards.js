@@ -30,35 +30,22 @@ const initialCards = [
 */
 
 
-const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-  .then(checkResponse)
-  .then (cards => {
-    cards.forEach(card => renderCard(addCard(card.name, card.link)))
-  })
-}
-
-const cardsList = document.querySelector('.cards__list')
-
-function renderCard(cardElement) {
-  cardsList.prepend(cardElement)
-}
 
 
 
 // функция создания карточки
-function addCard(name, link) {
+function addCard(name, link, likes) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
 
   const imageElement = cardElement.querySelector('.card__photo') // находим элемент картинки
   const titleElement = cardElement.querySelector('.card__sightseeing') // находим элемент названия
+  const likeCounter = cardElement.querySelector('.card__like-count') //находим счетчик лайка
 
   // связываем аргументы функции addCard с атрибутами картинки
   imageElement.src = link
   imageElement.alt = name
+  likeCounter.textContent = likes.length
   titleElement.textContent = name
 
   // устанавливаем слушатель события на картинку, открываем ее в попапе
