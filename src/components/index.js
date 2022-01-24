@@ -69,6 +69,7 @@ function handleAddCardFormSubmit(evt) {
 
   postNewCard(cardNameInput.value, cardLinkInput.value)
 
+  .then(checkResponse)
   .then((res) => {
     renderCard(res)
   })
@@ -79,11 +80,6 @@ function handleAddCardFormSubmit(evt) {
   const buttonElement = popupAddCard.querySelector('.popup__submit-button')
   buttonElement.disabled = true
   buttonElement.classList.add('popup__submit-button_disabled')
-
-  .catch((err) => {
-    console.log(err)
-  })
-
 }
 
 // Обработчик для “submit” формы добавления карточки
