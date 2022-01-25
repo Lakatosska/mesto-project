@@ -1,4 +1,5 @@
 import { openPopup, popupImage, popupPhoto, popupTitle } from "./modal.js"
+import { userId } from "./index.js"
 
 /*
 const initialCards = [
@@ -34,7 +35,7 @@ const initialCards = [
 
 
 // функция создания карточки
-function addCard(name, link, likes) {
+function addCard(name, link, likes, owner, userId) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
 
@@ -47,6 +48,12 @@ function addCard(name, link, likes) {
   imageElement.alt = name
   likeCounter.textContent = likes.length
   titleElement.textContent = name
+
+  /*
+  if (owner._id !== userId) {
+    trashButton.remove()
+  }
+  */
 
   // устанавливаем слушатель события на картинку, открываем ее в попапе
   imageElement.addEventListener('click', function() {
@@ -61,6 +68,9 @@ function addCard(name, link, likes) {
 
   likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
   // устанавливаем слушатель события на кнопку лайка
+
+
+
 
   trashButton.addEventListener('click', () => cardElement.remove())
   // устанавливаем слушатель события на кнопку удаления

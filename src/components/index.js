@@ -4,6 +4,9 @@ import { enableValidation } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
 import { config } from './api.js'
 
+export let userId
+console.log(userId)
+
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -61,7 +64,7 @@ const postNewCard = (name, link) => {
   })
   .then(checkResponse)
 }
-postNewCard()
+// postNewCard()
 
 
 // удалить карточку
@@ -72,7 +75,7 @@ const deleteCard = (cardId) => {
   })
   .then(checkResponse)
 }
-deleteCard()
+// deleteCard()
 //f.ex. deleteCard('61ef120d5d721101810ab019')
 
 
@@ -122,14 +125,7 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-// данные профиля с сервера
-fetch(`${config.baseUrl}/users/me`, {
-  headers: config.headers
-  })
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-});
+
 
 /*
 
@@ -148,6 +144,15 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
 });
 */
 
+// данные профиля с сервера
+fetch(`${config.baseUrl}/users/me`, {
+  headers: config.headers
+  })
+  .then(res => res.json())
+  .then((res) => {
+    console.log(res);
+});
+
 
 // получаем данные профиля с сервера (пока кроме аватара)
 const getProfileData = () => {
@@ -155,21 +160,17 @@ const getProfileData = () => {
     headers: config.headers
   })
   .then(checkResponse)
+  .then((res) => {
+    //console.log(result)
+    //nameInput.value = result.name
+    //jobInput.value = result.about
+    //avatar.src = result.avatar
+    profileName.textContent = res.name
+    profileJob.textContent = res.about
+    userId = res._id
+  })
 }
-
 getProfileData()
-.then((result) => {
-  //console.log(result)
-  //nameInput.value = result.name
-  //jobInput.value = result.about
-  //avatar.src = result.avatar
-  profileName.textContent = result.name
-  profileJob.textContent = result.about
-})
-.catch((err) => {
-  console.log(err)
-})
-
 
 // аватар
 const avatar = document.querySelector('.profile__avatar')
@@ -209,8 +210,9 @@ const getInitialCards = () => {
   })
   .then(checkResponse)
   .then (cards => {
-    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes)))
+    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes, card.owner)))
   })
+
 }
 
 getInitialCards()
