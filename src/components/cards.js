@@ -48,12 +48,6 @@ function addCard(name, link, likes, owner, userId) {
   titleElement.textContent = name
   console.log(userId)
 
-/*
-  if (owner._id !== userId) {
-    trashButton.remove()
-  }
-*/
-
   // устанавливаем слушатель события на картинку, открываем ее в попапе
   imageElement.addEventListener('click', function() {
     popupPhoto.src = link
@@ -65,16 +59,33 @@ function addCard(name, link, likes, owner, userId) {
   const likeButton = cardElement.querySelector('.card__heart-button') //находим кнопку лайка
   const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
 
-  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
-  // устанавливаем слушатель события на кнопку лайка
 
-
-
+  if (owner._id !== userId) {
+    trashButton.remove()
+  }
 
   trashButton.addEventListener('click', () => cardElement.remove())
   // устанавливаем слушатель события на кнопку удаления
 
+
+
+
+  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
+  // устанавливаем слушатель события на кнопку лайка
+
   return cardElement //возвращаем готовую карточку
 }
+
+
+// удалить карточку
+const deleteCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then(checkResponse)
+}
+// deleteCard()
+//f.ex. deleteCard('61ef120d5d721101810ab019')
 
 export { addCard }

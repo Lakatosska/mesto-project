@@ -6,6 +6,60 @@ import { config } from './api.js'
 
 export let userId
 
+const getInitialProfile = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+}
+
+const getInitialCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+}
+
+getInitialProfile()
+.then((res) => {
+  console.log(res)
+  //nameInput.value = result.name
+  //jobInput.value = result.about
+  //avatar.src = result.avatar
+  profileName.textContent = res.name
+  profileJob.textContent = res.about
+  userId = res._id
+  // добавляем готовые карточки
+  getInitialCards()
+  .then (cards => {
+    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes, card.owner, userId)))
+  })
+  return userId
+})
+.catch((err) => {
+  console.log(err)
+})
+
+// карточки с сервера
+
+const cardsList = document.querySelector('.cards__list')
+const renderCard = (cardElement) => cardsList.append(cardElement)
+
+/*
+
+const getInitialCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+  .then (cards => {
+    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes, card.owner)))
+  })
+
+}
+getInitialCards()
+
+
 // получаем данные профиля с сервера (пока без аватара)
 const getProfileData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -23,6 +77,9 @@ const getProfileData = () => {
 
 getProfileData()
 console.log(userId) //все равно underfined
+*/
+
+
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -198,22 +255,6 @@ updateAvatar("https://live.staticflickr.com/65535/51835354195_1f5cf12686_m.jpg")
 */
 
 
-// карточки с сервера
-
-const cardsList = document.querySelector('.cards__list')
-const renderCard = (cardElement) => cardsList.append(cardElement)
-
-const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-  .then(checkResponse)
-  .then (cards => {
-    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes, card.owner)))
-  })
-
-}
-getInitialCards()
 
 
 
