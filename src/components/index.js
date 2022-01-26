@@ -5,8 +5,24 @@ import { openPopup, closePopup } from './modal.js'
 import { config } from './api.js'
 
 export let userId
-console.log(userId)
 
+// получаем данные профиля с сервера (пока без аватара)
+const getProfileData = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers
+  })
+  .then(checkResponse)
+  .then((res) => {
+    profileName.textContent = res.name
+    profileJob.textContent = res.about
+    userId = res._id
+    console.log(userId) // показывает значение правильно
+  })
+
+}
+
+getProfileData()
+console.log(userId) //все равно underfined
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -154,23 +170,6 @@ fetch(`${config.baseUrl}/users/me`, {
 });
 
 
-// получаем данные профиля с сервера (пока кроме аватара)
-const getProfileData = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers
-  })
-  .then(checkResponse)
-  .then((res) => {
-    //console.log(result)
-    //nameInput.value = result.name
-    //jobInput.value = result.about
-    //avatar.src = result.avatar
-    profileName.textContent = res.name
-    profileJob.textContent = res.about
-    userId = res._id
-  })
-}
-getProfileData()
 
 // аватар
 const avatar = document.querySelector('.profile__avatar')
@@ -214,7 +213,6 @@ const getInitialCards = () => {
   })
 
 }
-
 getInitialCards()
 
 

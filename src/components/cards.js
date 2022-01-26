@@ -30,9 +30,7 @@ const initialCards = [
 ];
 */
 
-
-
-
+console.log(userId)
 
 // функция создания карточки
 function addCard(name, link, likes, owner, userId) {
@@ -48,12 +46,13 @@ function addCard(name, link, likes, owner, userId) {
   imageElement.alt = name
   likeCounter.textContent = likes.length
   titleElement.textContent = name
+  console.log(userId)
 
-  /*
+/*
   if (owner._id !== userId) {
     trashButton.remove()
   }
-  */
+*/
 
   // устанавливаем слушатель события на картинку, открываем ее в попапе
   imageElement.addEventListener('click', function() {
