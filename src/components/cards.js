@@ -64,11 +64,24 @@ function addCard(name, link, likes, owner, userId) {
     trashButton.remove()
   }
 
-  trashButton.addEventListener('click', () => cardElement.remove())
-  // устанавливаем слушатель события на кнопку удаления
+// устанавливаем слушатель события на кнопку удаления
+  trashButton.addEventListener('click', (evt) => {
+    deleteCard(data._id)
+      .then(() => {
+        evt.target.closest('.card').remove();
+      })
+      .catch(err => console.log(err))
+  });
 
-
-
+  /*
+  delBtn.addEventListener('click', (evt) => {
+    deleteCard(data._id)
+      .then(() => {
+        evt.target.closest('.cards__list-item').remove();
+      })
+      .catch(err => console.log(err))
+  });
+  */
 
   likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
   // устанавливаем слушатель события на кнопку лайка
@@ -78,7 +91,7 @@ function addCard(name, link, likes, owner, userId) {
 
 
 // удалить карточку
-const deleteCard = (cardId) => {
+function deleteCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -87,5 +100,7 @@ const deleteCard = (cardId) => {
 }
 // deleteCard()
 //f.ex. deleteCard('61ef120d5d721101810ab019')
+
+
 
 export { addCard }
