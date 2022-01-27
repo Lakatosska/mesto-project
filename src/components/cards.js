@@ -33,7 +33,7 @@ const initialCards = [
 console.log(userId)
 
 // функция создания карточки
-function addCard(name, link, likes, owner, userId) {
+function addCard(name, link, data) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
 
@@ -44,7 +44,7 @@ function addCard(name, link, likes, owner, userId) {
   // связываем аргументы функции addCard с атрибутами картинки
   imageElement.src = link
   imageElement.alt = name
-  likeCounter.textContent = likes.length
+  likeCounter.textContent = data.likes.length
   titleElement.textContent = name
   console.log(userId)
 
@@ -60,28 +60,16 @@ function addCard(name, link, likes, owner, userId) {
   const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
 
 
-  if (owner._id !== userId) {
+  if (data.owner._id !== userId) {
     trashButton.remove()
-  }
-
-// устанавливаем слушатель события на кнопку удаления
-  trashButton.addEventListener('click', (evt) => {
+  } else { trashButton.addEventListener('click', (evt) => {
     deleteCard(data._id)
       .then(() => {
         evt.target.closest('.card').remove();
       })
       .catch(err => console.log(err))
-  });
-
-  /*
-  delBtn.addEventListener('click', (evt) => {
-    deleteCard(data._id)
-      .then(() => {
-        evt.target.closest('.cards__list-item').remove();
-      })
-      .catch(err => console.log(err))
-  });
-  */
+    })
+  }
 
   likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
   // устанавливаем слушатель события на кнопку лайка

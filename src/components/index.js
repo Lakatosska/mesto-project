@@ -32,7 +32,7 @@ getInitialProfile()
   // добавляем готовые карточки
   getInitialCards()
   .then (cards => {
-    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes, card.owner, userId)))
+    cards.forEach(card => renderCard(card, cardsList))
   })
   return userId
 })
@@ -43,9 +43,48 @@ getInitialProfile()
 // карточки с сервера
 
 const cardsList = document.querySelector('.cards__list')
-const renderCard = (cardElement) => cardsList.append(cardElement)
+function renderCard(data, cardsList) {
+  const name = data.name
+  const link = data.link
+  const card = addCard(name, link, data)
+  cardsList.append(card)
+}
+
+
 
 /*
+addCard(card.name, card.link, card.likes, card.owner, card.id, userId))
+
+cards.reverse().forEach(card => {
+      renderCard(card, wrapElement);
+    });
+
+
+export function renderCard(data, wrapElement) {
+  const name = data.name;
+  const link = data.link;
+  const card = createCardElement(name, link, data);
+
+  wrapElement.prepend(card);
+}
+
+function createCardElement (title, link, data) {
+
+Promise.all([getUserData(), getCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    configModal.profileNameElement.textContent = userData.name;
+    configModal.profileJobElement.textContent = userData.about;
+    configModal.avatarImage.src = userData.avatar;
+    cards.reverse().forEach(card => {
+      renderCard(card, wrapElement);
+    });
+  })
+  .catch(err => console.log(err))
+
+
+
+
 
 const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
