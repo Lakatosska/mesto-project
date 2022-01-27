@@ -53,38 +53,6 @@ function renderCard(data, cardsList) {
 
 
 /*
-addCard(card.name, card.link, card.likes, card.owner, card.id, userId))
-
-cards.reverse().forEach(card => {
-      renderCard(card, wrapElement);
-    });
-
-
-export function renderCard(data, wrapElement) {
-  const name = data.name;
-  const link = data.link;
-  const card = createCardElement(name, link, data);
-
-  wrapElement.prepend(card);
-}
-
-function createCardElement (title, link, data) {
-
-Promise.all([getUserData(), getCards()])
-  .then(([userData, cards]) => {
-    userId = userData._id;
-    configModal.profileNameElement.textContent = userData.name;
-    configModal.profileJobElement.textContent = userData.about;
-    configModal.avatarImage.src = userData.avatar;
-    cards.reverse().forEach(card => {
-      renderCard(card, wrapElement);
-    });
-  })
-  .catch(err => console.log(err))
-
-
-
-
 
 const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
@@ -98,27 +66,7 @@ const getInitialCards = () => {
 }
 getInitialCards()
 
-
-// получаем данные профиля с сервера (пока без аватара)
-const getProfileData = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers
-  })
-  .then(checkResponse)
-  .then((res) => {
-    profileName.textContent = res.name
-    profileJob.textContent = res.about
-    userId = res._id
-    console.log(userId) // показывает значение правильно
-  })
-
-}
-
-getProfileData()
-console.log(userId) //все равно underfined
 */
-
-
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
