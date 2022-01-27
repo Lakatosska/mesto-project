@@ -73,13 +73,55 @@ export function addCard(name, link, data) {
     })
   })
 
-
-  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
   // устанавливаем слушатель события на кнопку лайка
+  //likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
+
+  if (checkLike(data)) {
+    likeButton.classList.add('card__heart-button_active')
+  }
+
+  likeButton.addEventListener('click', function (evt) {
+    if (checkLike(data)) {
+
+      deleteLike(data._id)
+        .then((data) => {
+          likeCounter.textContent = data.likes.length
+          evt.target.classList.toggle('card__heart-button_active')
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+
+    } else {
+
+      putLike(data._id)
+        .then((data) => {
+          likeCounter.textContent = data.likes.length
+          evt.target.classList.toggle('card__heart-button_active')
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+
+    }
+  });
+
 
   return cardElement //возвращаем готовую карточку
 }
 
+// поставить лайк
+function putLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers,
+  })
+  .then(checkResponse)
+}
+
+function checkLike(card) {
+  return card.likes.some(like => like._id === userId);
+}
 
 // удалить карточку
 function deleteCard(cardId) {
