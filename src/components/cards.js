@@ -1,5 +1,6 @@
 import { openPopup, popupImage, popupPhoto, popupTitle } from "./modal.js"
-import { userId } from "./index.js"
+import { userId, checkResponse } from "./index.js"
+import { config } from "./api.js"
 
 /*
 const initialCards = [
@@ -33,7 +34,7 @@ const initialCards = [
 console.log(userId)
 
 // функция создания карточки
-function addCard(name, link, data) {
+export function addCard(name, link, data) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
 
@@ -60,23 +61,24 @@ function addCard(name, link, data) {
   const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
 
 
-  if (data.owner._id !== userId) {
-    trashButton.remove()
-  } else { trashButton.addEventListener('click', (evt) => {
-    deleteCard(data._id)
-      .then(() => {
-        evt.target.closest('.card').remove();
-      })
-      .catch(err => console.log(err))
+  if (data.owner._id !== userId) trashButton.remove()
+
+  trashButton.addEventListener('click', (evt) => {
+    deleteCard(evt, data._id)
+    .then(() => {
+      evt.target.closest('.card').remove()
     })
-  }
+    .catch((err) => {
+      console.log(`Error: ${err}`)
+    })
+  })
+
 
   likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
   // устанавливаем слушатель события на кнопку лайка
 
   return cardElement //возвращаем готовую карточку
 }
-
 
 // удалить карточку
 function deleteCard(cardId) {
@@ -89,6 +91,10 @@ function deleteCard(cardId) {
 // deleteCard()
 //f.ex. deleteCard('61ef120d5d721101810ab019')
 
+/*
+function removeCard(evt, id) {
+  deleteCard(id)
 
+}
+*/
 
-export { addCard }

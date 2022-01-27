@@ -272,3 +272,4 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
 
 
 
+export { checkResponse }
