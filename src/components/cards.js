@@ -64,7 +64,7 @@ export function addCard(name, link, data) {
   if (data.owner._id !== userId) trashButton.remove()
 
   trashButton.addEventListener('click', (evt) => {
-    deleteCard(evt, data._id)
+    deleteCard(data._id)
     .then(() => {
       evt.target.closest('.card').remove()
     })
@@ -80,6 +80,7 @@ export function addCard(name, link, data) {
   return cardElement //возвращаем готовую карточку
 }
 
+
 // удалить карточку
 function deleteCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
@@ -91,10 +92,4 @@ function deleteCard(cardId) {
 // deleteCard()
 //f.ex. deleteCard('61ef120d5d721101810ab019')
 
-/*
-function removeCard(evt, id) {
-  deleteCard(id)
-
-}
-*/
 
