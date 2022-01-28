@@ -220,7 +220,7 @@ const avatar = document.querySelector('.profile__avatar')
 
 
 
-/*
+
 const changeAvatar = (avatar) => {
   return fetch(`${config.baseUrl}/users/me/avatar `, {
     method: 'PATCH',
@@ -239,7 +239,7 @@ function updateAvatar(link){
 }
 
 updateAvatar("https://live.staticflickr.com/65535/51835354195_1f5cf12686_m.jpg")
-*/
+
 
 
 
