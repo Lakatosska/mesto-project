@@ -76,6 +76,7 @@ export function addCard(name, link, data) {
   // устанавливаем слушатель события на кнопку лайка
   //likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
 
+
   if (checkLike(data)) {
     likeButton.classList.add('card__heart-button_active')
   }
@@ -114,6 +115,15 @@ export function addCard(name, link, data) {
 function putLike(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
+    headers: config.headers,
+  })
+  .then(checkResponse)
+}
+
+// поставить лайк
+function deleteLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
     headers: config.headers,
   })
   .then(checkResponse)
