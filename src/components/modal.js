@@ -1,14 +1,16 @@
+// открытие попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', closeByEscape)
 }
 
+// закрытие попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closeByEscape)
 }
 
-// Закрытие модального окна по клику на крестик и на оверлей
+// закрытие модального окна по клику на крестик и на оверлей
 const popups = document.querySelectorAll('.popup')
 
 popups.forEach((popup) => {
@@ -22,7 +24,7 @@ popups.forEach((popup) => {
   })
 })
 
-// Закрытие модального окна нажатием на ESC
+// закрытие модального окна нажатием на ESC
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened')
@@ -30,9 +32,5 @@ function closeByEscape(evt) {
   }
 }
 
-// модальное окно с просмотром картинки
-const popupImage = document.querySelector('.popup_type_image')
-const popupPhoto = popupImage.querySelector('.popup__photo')
-const popupTitle = popupImage.querySelector('.popup__sightseeing')
 
-export { openPopup, closePopup, popupImage, popupPhoto, popupTitle }
+export { openPopup, closePopup }

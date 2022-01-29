@@ -1,37 +1,16 @@
-import { openPopup, popupImage, popupPhoto, popupTitle } from "./modal.js"
-import { userId, checkResponse } from "./index.js"
-import { config } from "./api.js"
+import { openPopup } from "./modal.js"
+import { userId } from "./index.js"
+import { putLike, deleteLike, deleteCard } from "./api.js"
 
-/*
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-*/
+// константы для модального окна просмотра картинки
+const popupImage = document.querySelector('.popup_type_image')
+const popupPhoto = popupImage.querySelector('.popup__photo')
+const popupTitle = popupImage.querySelector('.popup__sightseeing')
 
-console.log(userId)
+// функция возвращает карточки, которые лайкнуты мной
+function checkLike(card) {
+  return card.likes.some(like => like._id === userId);
+}
 
 // функция создания карточки
 export function addCard(name, link, data) {
@@ -60,7 +39,7 @@ export function addCard(name, link, data) {
   const likeButton = cardElement.querySelector('.card__heart-button') //находим кнопку лайка
   const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
 
-
+  // удаляем иконку корзины, если карточки не мои
   if (data.owner._id !== userId) trashButton.remove()
 
   trashButton.addEventListener('click', (evt) => {
@@ -107,37 +86,7 @@ export function addCard(name, link, data) {
   return cardElement //возвращаем готовую карточку
 }
 
-// поставить лайк
-function putLike(cardId) {
-  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-    method: 'PUT',
-    headers: config.headers,
-  })
-  .then(checkResponse)
-}
 
-// поставить лайк
-function deleteLike(cardId) {
-  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-    method: 'DELETE',
-    headers: config.headers,
-  })
-  .then(checkResponse)
-}
 
-function checkLike(card) {
-  return card.likes.some(like => like._id === userId);
-}
-
-// удалить карточку
-function deleteCard(cardId) {
-  return fetch(`${config.baseUrl}/cards/${cardId}`, {
-    method: 'DELETE',
-    headers: config.headers,
-  })
-  .then(checkResponse)
-}
-// deleteCard()
-//f.ex. deleteCard('61ef120d5d721101810ab019')
 
 
