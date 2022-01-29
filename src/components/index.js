@@ -5,6 +5,7 @@ import { openPopup, closePopup } from './modal.js'
 import { config } from './api.js'
 
 export let userId
+console.log(userId)
 
 const getInitialProfile = () => {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -25,7 +26,7 @@ getInitialProfile()
   console.log(res)
   //nameInput.value = result.name
   //jobInput.value = result.about
-  //avatar.src = result.avatar
+  avatar.src = res.avatar
   profileName.textContent = res.name
   profileJob.textContent = res.about
   userId = res._id
@@ -34,7 +35,7 @@ getInitialProfile()
   .then (cards => {
     cards.forEach(card => renderCard(card, cardsList))
   })
-  return userId
+  //return userId
 })
 .catch((err) => {
   console.log(err)
@@ -112,27 +113,45 @@ const editAvatarFormElement = document.querySelector('.form_type_change-avatar')
 const avatarInput = editAvatarFormElement.querySelector('.form__input_type_link')
 
 // Выбираем элементы, куда должны быть вставлены значения полей
-const avatarImage = profile.querySelector('.profile__avatar-image')
+const avatar = profile.querySelector('.profile__avatar-image')
 
 // Открытие модального окна, поле заполняется ссылкой на текущий аватар
 editAvatar.addEventListener('click', () => {
   openPopup(popupEditAvatar)
-  avatarInput.value = avatarImage.textContent
+  avatarInput.value = avatar.textContent
 })
 
 // Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
 function handleEditAvatarFormSubmit (evt) {
   evt.preventDefault()
+  changeAvatar(avatarInput.value)
+  .then((res) => {
+    avatar.src = res.avatar
+    closePopup(popupEditAvatar)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
-  avatar.textContent = avatarInput.value
-  closePopup(popupEditAvatar)
 }
 
 //  Обработчик для “submit” формы редактирования профиля
 editAvatarFormElement.addEventListener('submit', handleEditAvatarFormSubmit)
 
 
+const changeAvatar = (avatar) => {
+  return fetch(`${config.baseUrl}/users/me/avatar `, {
+    method: 'PATCH',
+    headers:config.headers,
+    body: JSON.stringify({
+      avatar: avatar
+    })
+  })
+  .then(checkResponse)
+}
 
+
+//"https://live.staticflickr.com/65535/51835354195_1f5cf12686_m.jpg"
 
 
 
@@ -219,8 +238,6 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-
-
 /*
 
 //редактируем данные пользователя
@@ -250,29 +267,9 @@ fetch(`${config.baseUrl}/users/me`, {
 
 
 // аватар
-const avatar = document.querySelector('.profile__avatar')
+//const avatar = profile.querySelector('.profile__avatar-image')
 
 
-
-
-const changeAvatar = (avatar) => {
-  return fetch(`${config.baseUrl}/users/me/avatar `, {
-    method: 'PATCH',
-    headers:config.headers,
-    body: JSON.stringify({
-      avatar: avatar
-    })
-  })
-  .then(checkResponse)
-}
-
-
-function updateAvatar(link){
-  const body = JSON.stringify({avatar:link});
-  return sendRequest(`${config.baseUrl}/users/me/avatar`, 'PATCH', body);
-}
-
-updateAvatar("https://live.staticflickr.com/65535/51835354195_1f5cf12686_m.jpg")
 
 
 
