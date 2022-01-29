@@ -72,19 +72,19 @@ getInitialCards()
 
 const profile = document.querySelector('.profile')
 const popupProfile = document.querySelector('.popup_type_edit-profile')
-const editButton =  profile.querySelector('.profile__edit-button')
+const editProfileButton =  profile.querySelector('.profile__edit-button')
 
 // Находим форму и ее поля в DOM
-const editFormElement = document.querySelector('.form_type_edit-profile')
-const nameInput = editFormElement.querySelector('.form__input_type_name')
-const jobInput = editFormElement.querySelector('.form__input_type_job')
+const editProfileFormElement = document.querySelector('.form_type_edit-profile')
+const nameInput = editProfileFormElement.querySelector('.form__input_type_name')
+const jobInput = editProfileFormElement.querySelector('.form__input_type_job')
 
 // Выбираем элементы, куда должны быть вставлены значения полей
 const profileName = profile.querySelector('.profile__name')
 const profileJob = profile.querySelector('.profile__job')
 
 // Открытие модального окна, поля заполняются значениями, указанными в профиле
-editButton.addEventListener('click', () => {
+editProfileButton.addEventListener('click', () => {
   openPopup(popupProfile)
   nameInput.value = profileName.textContent
   jobInput.value = profileJob.textContent
@@ -100,7 +100,41 @@ function handleProfileFormSubmit (evt) {
 }
 
 //  Обработчик для “submit” формы редактирования профиля
-editFormElement.addEventListener('submit', handleProfileFormSubmit)
+editProfileFormElement.addEventListener('submit', handleProfileFormSubmit)
+
+// РЕДАКТИРОВАНИЕ АВАТАРА
+
+const popupEditAvatar = document.querySelector('.popup_type_change-avatar')
+const editAvatar =  profile.querySelector('.profile__avatar')
+
+// Находим форму и ее поля в DOM
+const editAvatarFormElement = document.querySelector('.form_type_change-avatar')
+const avatarInput = editAvatarFormElement.querySelector('.form__input_type_link')
+
+// Выбираем элементы, куда должны быть вставлены значения полей
+const avatarImage = profile.querySelector('.profile__avatar-image')
+
+// Открытие модального окна, поле заполняется ссылкой на текущий аватар
+editAvatar.addEventListener('click', () => {
+  openPopup(popupEditAvatar)
+  avatarInput.value = avatarImage.textContent
+})
+
+// Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
+function handleEditAvatarFormSubmit (evt) {
+  evt.preventDefault()
+
+  avatar.textContent = avatarInput.value
+  closePopup(popupEditAvatar)
+}
+
+//  Обработчик для “submit” формы редактирования профиля
+editAvatarFormElement.addEventListener('submit', handleEditAvatarFormSubmit)
+
+
+
+
+
 
 // ДОБАВЛЕНИЕ КАРТОЧКИ ЧЕРЕЗ МОДАЛЬНОЕ ОКНО
 

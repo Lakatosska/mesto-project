@@ -146,19 +146,48 @@
           ></button>
         </div>
       </div>
-    </div>
 
-    <div class="popup popup_type_image">
-      <div class="popup__container popup__container_type_image">
-        <img class="popup__photo" src="" alt=""></img>
-        <h2 class="popup__sightseeing"></h2>
-        <button
-        type="button"
-        class="popup__close-button"
-        aria-label="закрыть"
-      ></button>
+      <div class="popup popup_type_image">
+        <div class="popup__container popup__container_type_image">
+          <img class="popup__photo" src="" alt=""></img>
+          <h2 class="popup__sightseeing"></h2>
+          <button
+          type="button"
+          class="popup__close-button"
+          aria-label="закрыть"
+        ></button>
+        </div>
       </div>
 
+      <div class="popup popup_type_change-avatar">
+        <div class="popup__container popup__container_type_change-avatar">
+          <form class="form form_type_change-avatar" name="change-avatar" novalidate>
+            <h2 class="form__heading">Обновить аватар</h2>
+
+              <label for="link" class="form__field">
+                <input id="link-input"
+                  type="url"
+                  name="avatar-link"
+                  class="form__input form__input_type_link"
+                  placeholder="Ссылка на аватар"
+                  required
+                />
+                <span class="form__input-error link-input-error"></span>
+              </label>
+            </fieldset>
+
+            <button type="submit" class="popup__submit-button">
+              Сохранить
+            </button>
+          </form>
+
+          <button
+            type="button"
+            class="popup__close-button"
+            aria-label="закрыть"
+          ></button>
+        </div>
+      </div>
     </div>
 
     <template id="card-template">
@@ -174,6 +203,7 @@
         </div>
       </li>
     </template>
+  </div>
 
   </body>
 </html>
