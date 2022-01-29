@@ -73,9 +73,7 @@ export function addCard(name, link, data) {
     })
   })
 
-  // устанавливаем слушатель события на кнопку лайка
-  //likeButton.addEventListener('click', () => likeButton.classList.toggle('card__heart-button_active'))
-
+  // ЛАЙКИ
 
   if (checkLike(data)) {
     likeButton.classList.add('card__heart-button_active')
@@ -103,10 +101,8 @@ export function addCard(name, link, data) {
         .catch((err) => {
           console.log(err)
         });
-
     }
   });
-
 
   return cardElement //возвращаем готовую карточку
 }

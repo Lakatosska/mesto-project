@@ -35,7 +35,7 @@ getInitialProfile()
   .then (cards => {
     cards.forEach(card => renderCard(card, cardsList))
   })
-  //return userId
+  return userId
 })
 .catch((err) => {
   console.log(err)
@@ -50,24 +50,6 @@ function renderCard(data, cardsList) {
   const card = addCard(name, link, data)
   cardsList.append(card)
 }
-
-
-
-/*
-
-const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-  .then(checkResponse)
-  .then (cards => {
-    cards.forEach(card => renderCard(addCard(card.name, card.link, card.likes, card.owner)))
-  })
-
-}
-getInitialCards()
-
-*/
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -91,17 +73,41 @@ editProfileButton.addEventListener('click', () => {
   jobInput.value = profileJob.textContent
 })
 
-// Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
+// Обработчик «отправки» формы редактирования профиля, введенные данные сохраняются, модальное окно закрывается
 function handleProfileFormSubmit (evt) {
   evt.preventDefault()
 
-  profileName.textContent = nameInput.value
-  profileJob.textContent = jobInput.value
-  closePopup(popupProfile)
+  renderLoading(true, popupProfile)
+
+  editUserData(nameInput.value, jobInput.value)
+  .then((res) => {
+    profileName.textContent = res.name
+    profileJob.textContent = res.about
+    closePopup(popupProfile)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => renderLoading(false, popupProfile))
 }
+
 
 //  Обработчик для “submit” формы редактирования профиля
 editProfileFormElement.addEventListener('submit', handleProfileFormSubmit)
+
+
+function editUserData(name, about) {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      about: about,
+    })
+  })
+  .then(checkResponse)
+}
+
 
 // РЕДАКТИРОВАНИЕ АВАТАРА
 
@@ -124,6 +130,9 @@ editAvatar.addEventListener('click', () => {
 // Обработчик «отправки» формы, введенные данные сохраняются, модальное окно закрывается
 function handleEditAvatarFormSubmit (evt) {
   evt.preventDefault()
+
+  renderLoading(true, popupEditAvatar)
+
   changeAvatar(avatarInput.value)
   .then((res) => {
     avatar.src = res.avatar
@@ -132,6 +141,7 @@ function handleEditAvatarFormSubmit (evt) {
   .catch((err) => {
     console.log(err)
   })
+  .finally(() => renderLoading(false, popupEditAvatar))
 
 }
 
@@ -192,23 +202,27 @@ const deleteCard = (cardId) => {
 //f.ex. deleteCard('61ef120d5d721101810ab019')
 
 
-// Обработчик «отправки» формы, модальное окно закрывается, поля очищаются
+// Обработчик «отправки» формы добавления карточки, модальное окно закрывается, поля очищаются
 function handleAddCardFormSubmit(evt) {
-  evt.preventDefault()
-
-  postNewCard(cardNameInput.value, cardLinkInput.value)
-
-  .then(checkResponse)
-  .then((res) => {
-    renderCard(res)
-  })
-
-  closePopup(popupAddCard)
-  addFormElement.reset()
-
   const buttonElement = popupAddCard.querySelector('.popup__submit-button')
   buttonElement.disabled = true
   buttonElement.classList.add('popup__submit-button_disabled')
+
+  evt.preventDefault()
+  renderLoading(true, popupAddCard)
+
+  postNewCard(cardNameInput.value, cardLinkInput.value)
+  .then(checkResponse)
+  .then((res) => {
+    renderCard(res)
+
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => renderLoading(false, popupAddCard))
+  closePopup(popupAddCard)
+  addFormElement.reset()
 }
 
 // Обработчик для “submit” формы добавления карточки
@@ -238,22 +252,7 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-/*
 
-//редактируем данные пользователя
-fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: profileName,
-    about: profileJob,
-    avatar: avatar
-  })
-});
-*/
 
 // данные профиля с сервера
 fetch(`${config.baseUrl}/users/me`, {
@@ -263,19 +262,6 @@ fetch(`${config.baseUrl}/users/me`, {
   .then((res) => {
     console.log(res);
 });
-
-
-
-// аватар
-//const avatar = profile.querySelector('.profile__avatar-image')
-
-
-
-
-
-
-
-
 
 
 // данные профилей когорты с сервера - вывожу в консоль
@@ -301,6 +287,17 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
     console.log(result);
 });
 
+
+// Loader
+
+function renderLoading(isLoading, popup){
+  const popupButton = popup.querySelector('.popup__submit-button');
+  if(isLoading){
+    popupButton.textContent = 'Сохранение...';
+  } else {
+    popupButton.textContent = 'Сохранить';
+  }
+}
 
 
 export { checkResponse }
