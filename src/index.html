@@ -26,20 +26,24 @@
       <main class="content">
         <section class="profile">
           <div class="profile__info">
-            <img
-              class="profile__avatar"
-              src="<%=require('./images/header-avatar.jpg')%>"
-              alt="фотография владельца аккаунта"
-            />
+
+            <div class="profile__avatar">
+              <img
+                class="profile__avatar-image"
+                src=""
+                alt="фотография владельца аккаунта"
+              />
+            </div>
+
 
             <div class="profile__item">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button
                 type="button"
                 class="profile__edit-button"
                 aria-label="изменить данные профиля"
               ></button>
-              <p class="profile__job">Исследователь океана</p>
+              <p class="profile__job"></p>
             </div>
           </div>
 
@@ -142,19 +146,48 @@
           ></button>
         </div>
       </div>
-    </div>
 
-    <div class="popup popup_type_image">
-      <div class="popup__container popup__container_type_image">
-        <img class="popup__photo" src="" alt=""></img>
-        <h2 class="popup__sightseeing"></h2>
-        <button
-        type="button"
-        class="popup__close-button"
-        aria-label="закрыть"
-      ></button>
+      <div class="popup popup_type_image">
+        <div class="popup__container popup__container_type_image">
+          <img class="popup__photo" src="" alt=""></img>
+          <h2 class="popup__sightseeing"></h2>
+          <button
+          type="button"
+          class="popup__close-button"
+          aria-label="закрыть"
+        ></button>
+        </div>
       </div>
 
+      <div class="popup popup_type_change-avatar">
+        <div class="popup__container popup__container_type_change-avatar">
+          <form class="form form_type_change-avatar" name="change-avatar" novalidate>
+            <h2 class="form__heading">Обновить аватар</h2>
+
+              <label for="link" class="form__field">
+                <input id="link-input"
+                  type="url"
+                  name="avatar-link"
+                  class="form__input form__input_type_link"
+                  placeholder="Ссылка на аватар"
+                  required
+                />
+                <span class="form__input-error link-input-error"></span>
+              </label>
+            </fieldset>
+
+            <button type="submit" class="popup__submit-button">
+              Сохранить
+            </button>
+          </form>
+
+          <button
+            type="button"
+            class="popup__close-button"
+            aria-label="закрыть"
+          ></button>
+        </div>
+      </div>
     </div>
 
     <template id="card-template">
@@ -163,10 +196,14 @@
         <button type="button" class="card__trash-button"></button>
         <div class="card__info">
           <h2 class="card__sightseeing"></h2>
-          <button type="button" class="card__heart-button"></button>
+          <div cladd="card__like-container">
+            <button type="button" class="card__heart-button"></button>
+            <p class="card__like-count"></p>
+          </div>
         </div>
       </li>
     </template>
+  </div>
 
   </body>
 </html>
