@@ -2,7 +2,7 @@ import '../pages/index.css'
 import { addCard } from './cards.js'
 import { enableValidation } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
-import { checkResponse, getAppInfo, editUserData, changeAvatar, postNewCard } from './api.js'
+import { getAppInfo, editUserData, changeAvatar, postNewCard } from './api.js'
 
 export let userId
 
@@ -45,6 +45,16 @@ getAppInfo()
   })
   .catch(err => console.log(err))
 
+
+  // обработка карточек с сервера
+const cardsList = document.querySelector('.cards__list')
+
+const renderCard = (data, cardsList) => {
+  const name = data.name
+  const link = data.link
+  const card = addCard(name, link, data)
+  cardsList.append(card)
+}
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -96,7 +106,6 @@ function handleEditAvatarFormSubmit (evt) {
   })
   .catch(err => console.log(err))
   .finally(() => renderLoading(false, popupEditAvatar))
-
 }
 
 // обработчик для “submit” формы редактирования аватара
@@ -114,7 +123,6 @@ function handleAddCardFormSubmit(evt) {
   renderLoading(true, popupAddCard)
 
   postNewCard(cardNameInput.value, cardLinkInput.value)
-  .then(checkResponse)
   .then(res => renderCard(res))
   .catch(err => console.log(err))
   .finally(() => renderLoading(false, popupAddCard))
@@ -130,16 +138,6 @@ function handleAddCardFormSubmit(evt) {
 // Обработчик для “submit” формы добавления карточки
 addFormElement.addEventListener('submit', handleAddCardFormSubmit)
 
-// обработка карточек с сервера
-const cardsList = document.querySelector('.cards__list')
-function renderCard(data, cardsList) {
-  const name = data.name
-  const link = data.link
-  const card = addCard(name, link, data)
-  cardsList.append(card)
-}
-
-
 // валидация
 const validationConfig = {
   formSelector: '.form',
@@ -153,7 +151,7 @@ const validationConfig = {
 enableValidation(validationConfig)
 
 // loader
-function renderLoading(isLoading, popup){
+const renderLoading = (isLoading, popup) => {
   const popupButton = popup.querySelector('.popup__submit-button')
   if(isLoading){
     popupButton.textContent = 'Сохранение...'

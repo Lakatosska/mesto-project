@@ -7,8 +7,9 @@ const popupImage = document.querySelector('.popup_type_image')
 const popupPhoto = popupImage.querySelector('.popup__photo')
 const popupTitle = popupImage.querySelector('.popup__sightseeing')
 
+
 // функция создания карточки
-export function addCard(name, link, data) {
+function addCard(name, link, data) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
 
@@ -78,7 +79,7 @@ export function addCard(name, link, data) {
   return cardElement //возвращаем готовую карточку
 }
 
-
+export { addCard }
 
 
 
