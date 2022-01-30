@@ -16,6 +16,7 @@
 * Form with input validation
 * Javascript
 * Webpack
+* API
 
 Используется методология БЭМ (Nested)
 
