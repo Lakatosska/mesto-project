@@ -6,15 +6,18 @@ const config = {
   }
 }
 
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json()
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
+// функция проверки ответа
+const checkResponse = (res) => {
+  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+}
+
+// функция загрузки данных для профиля и карточек
+const getAppInfo = () => {
+  return Promise.all([getInitialProfile(), getInitialCards()])
 }
 
 // получение данных профиля с сервера
-function getInitialProfile() {
+const getInitialProfile = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
@@ -22,7 +25,7 @@ function getInitialProfile() {
 }
 
 // получение карточек с сервера
-function getInitialCards() {
+const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
@@ -30,7 +33,7 @@ function getInitialCards() {
 }
 
 // редактирование профиля
-function editUserData(name, about) {
+const editUserData = (name, about) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
@@ -68,7 +71,7 @@ const postNewCard = (name, link) => {
 }
 
 // поставить лайк
-function putLike(cardId) {
+const putLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
     headers: config.headers,
@@ -77,7 +80,7 @@ function putLike(cardId) {
 }
 
 // удалить лайк
-function deleteLike(cardId) {
+const deleteLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -86,7 +89,7 @@ function deleteLike(cardId) {
 }
 
 // удалить карточку
-function deleteCard(cardId) {
+const deleteCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: config.headers,
@@ -100,11 +103,9 @@ function deleteCard(cardId) {
 // данные профиля с сервера - вывожу в консоль
 fetch(`${config.baseUrl}/users/me`, {
   headers: config.headers
-  })
+})
   .then(res => res.json())
-  .then((res) => {
-    console.log(res);
-});
+  .then(res => console.log(res))
 
 
 // данные профилей когорты с сервера - вывожу в консоль
@@ -112,11 +113,9 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/users/', {
   headers: {
     authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
   }
-  })
+})
   .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-});
+  .then(res => console.log(res))
 
 // карточки с сервера - вывожу в консоль
 fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
@@ -125,9 +124,7 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
   }
 })
   .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-});
+  .then(res => console.log(res))
 
 
-export { config, checkResponse, getInitialProfile, getInitialCards, editUserData, changeAvatar, postNewCard, putLike, deleteLike, deleteCard }
+export { config, checkResponse, getAppInfo, editUserData, changeAvatar, postNewCard, putLike, deleteLike, deleteCard }

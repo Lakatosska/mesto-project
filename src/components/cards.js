@@ -7,11 +7,6 @@ const popupImage = document.querySelector('.popup_type_image')
 const popupPhoto = popupImage.querySelector('.popup__photo')
 const popupTitle = popupImage.querySelector('.popup__sightseeing')
 
-// функция возвращает карточки, которые лайкнуты мной
-function checkLike(card) {
-  return card.likes.some(like => like._id === userId);
-}
-
 // функция создания карточки
 export function addCard(name, link, data) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
@@ -24,9 +19,8 @@ export function addCard(name, link, data) {
   // связываем аргументы функции addCard с атрибутами картинки
   imageElement.src = link
   imageElement.alt = name
-  likeCounter.textContent = data.likes.length
+  likeCounter.textContent = data.likes.length // счетчик лайков
   titleElement.textContent = name
-  console.log(userId)
 
   // устанавливаем слушатель события на картинку, открываем ее в попапе
   imageElement.addEventListener('click', function() {
@@ -42,17 +36,19 @@ export function addCard(name, link, data) {
   // удаляем иконку корзины, если карточки не мои
   if (data.owner._id !== userId) trashButton.remove()
 
+  // слушатель "корзины", удаляем карточку
   trashButton.addEventListener('click', (evt) => {
     deleteCard(data._id)
-    .then(() => {
-      evt.target.closest('.card').remove()
-    })
-    .catch((err) => {
-      console.log(`Error: ${err}`)
-    })
+    .then(() => evt.target.closest('.card').remove())
+    .catch(err => console.log(err))
   })
 
   // ЛАЙКИ
+
+  // возвращает true, если карточки лайкнуты мной (совпадает мой id и id лайкнувших)
+  const checkLike = (card) => {
+    return card.likes.some(like => like._id === userId)
+  }
 
   if (checkLike(data)) {
     likeButton.classList.add('card__heart-button_active')
@@ -62,26 +58,22 @@ export function addCard(name, link, data) {
     if (checkLike(data)) {
 
       deleteLike(data._id)
-        .then((data) => {
+        .then(data => {
           likeCounter.textContent = data.likes.length
           evt.target.classList.toggle('card__heart-button_active')
         })
-        .catch((err) => {
-          console.log(err)
-        });
+        .catch(err => console.log(err))
 
     } else {
 
       putLike(data._id)
-        .then((data) => {
+        .then(data => {
           likeCounter.textContent = data.likes.length
           evt.target.classList.toggle('card__heart-button_active')
         })
-        .catch((err) => {
-          console.log(err)
-        });
+        .catch(err => console.log(err))
     }
-  });
+  })
 
   return cardElement //возвращаем готовую карточку
 }

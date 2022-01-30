@@ -2,7 +2,7 @@ import '../pages/index.css'
 import { addCard } from './cards.js'
 import { enableValidation } from './validate.js'
 import { openPopup, closePopup } from './modal.js'
-import { checkResponse, getInitialProfile, getInitialCards, editUserData, changeAvatar, postNewCard } from './api.js'
+import { checkResponse, getAppInfo, editUserData, changeAvatar, postNewCard } from './api.js'
 
 export let userId
 
@@ -33,25 +33,17 @@ const cardNameInput = addFormElement.querySelector('.form__input_type_place')
 const cardLinkInput = addFormElement.querySelector('.form__input_type_link')
 
 
-getInitialProfile()
-.then((res) => {
-  console.log(res)
-  //nameInput.value = result.name
-  //jobInput.value = result.about
-  avatar.src = res.avatar
-  profileName.textContent = res.name
-  profileJob.textContent = res.about
-  userId = res._id
-  // добавляем готовые карточки
-  getInitialCards()
-  .then (cards => {
+// получаем данные профиля и карточек для загрузки страницы
+
+getAppInfo()
+  .then(([user, cards]) => {
+    avatar.src = user.avatar
+    profileName.textContent = user.name
+    profileJob.textContent = user.about
+    userId = user._id
     cards.forEach(card => renderCard(card, cardsList))
   })
-  return userId
-})
-.catch((err) => {
-  console.log(err)
-})
+  .catch(err => console.log(err))
 
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
@@ -70,14 +62,12 @@ function handleProfileFormSubmit (evt) {
   renderLoading(true, popupProfile)
 
   editUserData(nameInput.value, jobInput.value)
-  .then((res) => {
+  .then(res => {
     profileName.textContent = res.name
     profileJob.textContent = res.about
     closePopup(popupProfile)
   })
-  .catch((err) => {
-    console.log(err)
-  })
+  .catch(err => console.log(err))
   .finally(() => renderLoading(false, popupProfile))
 }
 
@@ -100,13 +90,11 @@ function handleEditAvatarFormSubmit (evt) {
   renderLoading(true, popupEditAvatar)
 
   changeAvatar(avatarInput.value)
-  .then((res) => {
+  .then(res => {
     avatar.src = res.avatar
     closePopup(popupEditAvatar)
   })
-  .catch((err) => {
-    console.log(err)
-  })
+  .catch(err => console.log(err))
   .finally(() => renderLoading(false, popupEditAvatar))
 
 }
@@ -127,13 +115,8 @@ function handleAddCardFormSubmit(evt) {
 
   postNewCard(cardNameInput.value, cardLinkInput.value)
   .then(checkResponse)
-  .then((res) => {
-    renderCard(res)
-
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+  .then(res => renderCard(res))
+  .catch(err => console.log(err))
   .finally(() => renderLoading(false, popupAddCard))
 
   closePopup(popupAddCard)
@@ -167,15 +150,15 @@ const validationConfig = {
   errorClass: 'form__input-error_active'
 }
 
-enableValidation(validationConfig);
+enableValidation(validationConfig)
 
 // loader
 function renderLoading(isLoading, popup){
-  const popupButton = popup.querySelector('.popup__submit-button');
+  const popupButton = popup.querySelector('.popup__submit-button')
   if(isLoading){
-    popupButton.textContent = 'Сохранение...';
+    popupButton.textContent = 'Сохранение...'
   } else {
-    popupButton.textContent = 'Сохранить';
+    popupButton.textContent = 'Сохранить'
   }
 }
 
