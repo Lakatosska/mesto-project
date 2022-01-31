@@ -9,7 +9,7 @@ const popupTitle = popupImage.querySelector('.popup__sightseeing')
 
 
 // функция создания карточки
-function addCard(name, link, data) {
+function addCard(cardData, userId) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
 
@@ -18,16 +18,16 @@ function addCard(name, link, data) {
   const likeCounter = cardElement.querySelector('.card__like-count') //находим счетчик лайка
 
   // связываем аргументы функции addCard с атрибутами картинки
-  imageElement.src = link
-  imageElement.alt = name
-  likeCounter.textContent = data.likes.length // счетчик лайков
-  titleElement.textContent = name
+  imageElement.src = cardData.link
+  imageElement.alt = cardData.name
+  likeCounter.textContent = cardData.likes.length // счетчик лайков
+  titleElement.textContent = cardData.name
 
   // устанавливаем слушатель события на картинку, открываем ее в попапе
   imageElement.addEventListener('click', function() {
-    popupPhoto.src = link
-    popupPhoto.alt = name
-    popupTitle.textContent = name
+    popupPhoto.src = cardData.link
+    popupPhoto.alt = cardData.name
+    popupTitle.textContent = cardData.name
     openPopup(popupImage)
   });
 
@@ -35,11 +35,11 @@ function addCard(name, link, data) {
   const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
 
   // удаляем иконку корзины, если карточки не мои
-  if (data.owner._id !== userId) trashButton.remove()
+  if (cardData.owner._id !== userId) trashButton.remove()
 
   // слушатель "корзины", удаляем карточку
   trashButton.addEventListener('click', (evt) => {
-    deleteCard(data._id)
+    deleteCard(cardData._id)
     .then(() => evt.target.closest('.card').remove())
     .catch(err => console.log(err))
   })
@@ -51,25 +51,25 @@ function addCard(name, link, data) {
     return card.likes.some(like => like._id === userId)
   }
 
-  if (checkLike(data)) {
+  if (checkLike(cardData)) {
     likeButton.classList.add('card__heart-button_active')
   }
 
   likeButton.addEventListener('click', function (evt) {
-    if (checkLike(data)) {
+    if (checkLike(cardData)) {
 
-      deleteLike(data._id)
-        .then(data => {
-          likeCounter.textContent = data.likes.length
+      deleteLike(cardData._id)
+        .then(cardData => {
+          likeCounter.textContent = cardData.likes.length
           evt.target.classList.toggle('card__heart-button_active')
         })
         .catch(err => console.log(err))
 
     } else {
 
-      putLike(data._id)
-        .then(data => {
-          likeCounter.textContent = data.likes.length
+      putLike(cardData._id)
+        .then(cardData => {
+          likeCounter.textContent = cardData.likes.length
           evt.target.classList.toggle('card__heart-button_active')
         })
         .catch(err => console.log(err))
