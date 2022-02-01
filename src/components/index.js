@@ -41,7 +41,7 @@ getAppInfo()
     profileName.textContent = user.name
     profileJob.textContent = user.about
     userId = user._id
-    cards.forEach(card => renderCard(card, cardsList))
+    cards.reverse().forEach(cardData => renderCard(cardData, cardsList, userId))
   })
   .catch(err => console.log(err))
 
@@ -49,12 +49,10 @@ getAppInfo()
   // обработка карточек с сервера
 const cardsList = document.querySelector('.cards__list')
 
-const renderCard = (data, cardsList) => {
-  const name = data.name
-  const link = data.link
-  const card = addCard(name, link, data)
-  cardsList.append(card)
-}
+const renderCard = (cardData, cardsList, userId) => {
+  const card = addCard(cardData, userId)
+  cardsList.prepend(card)
+};
 
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
@@ -75,6 +73,10 @@ function handleProfileFormSubmit (evt) {
   .then(res => {
     profileName.textContent = res.name
     profileJob.textContent = res.about
+    editProfileFormElement.reset()
+    const buttonElement = popupProfile.querySelector('.popup__submit-button')
+    buttonElement.disabled = true
+    buttonElement.classList.add('popup__submit-button_disabled')
     closePopup(popupProfile)
   })
   .catch(err => console.log(err))
@@ -102,6 +104,10 @@ function handleEditAvatarFormSubmit (evt) {
   changeAvatar(avatarInput.value)
   .then(res => {
     avatar.src = res.avatar
+    editAvatarFormElement.reset()
+    const buttonElement = popupEditAvatar.querySelector('.popup__submit-button')
+    buttonElement.disabled = true
+    buttonElement.classList.add('popup__submit-button_disabled')
     closePopup(popupEditAvatar)
   })
   .catch(err => console.log(err))
@@ -123,16 +129,17 @@ function handleAddCardFormSubmit(evt) {
   renderLoading(true, popupAddCard)
 
   postNewCard(cardNameInput.value, cardLinkInput.value)
-  .then(res => renderCard(res))
+  .then(cardData => {
+    renderCard(cardData, cardsList, userId)
+    addFormElement.reset()
+    const buttonElement = popupAddCard.querySelector('.popup__submit-button')
+    buttonElement.disabled = true
+    buttonElement.classList.add('popup__submit-button_disabled')
+    closePopup(popupAddCard)
+  })
   .catch(err => console.log(err))
   .finally(() => renderLoading(false, popupAddCard))
 
-  closePopup(popupAddCard)
-  addFormElement.reset()
-
-  const buttonElement = popupAddCard.querySelector('.popup__submit-button')
-  buttonElement.disabled = true
-  buttonElement.classList.add('popup__submit-button_disabled')
 }
 
 // Обработчик для “submit” формы добавления карточки
