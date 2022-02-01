@@ -54,15 +54,6 @@ const renderCard = (cardData, cardsList, userId) => {
   cardsList.prepend(card)
 };
 
-/*
-const renderCard = (data, cardsList) => {
-  const name = data.name
-  const link = data.link
-  const card = addCard(name, link, data)
-  cardsList.append(card)
-}
-*/
-
 // РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 
 // открытие модального окна, поля заполняются значениями, указанными в профиле
@@ -82,6 +73,10 @@ function handleProfileFormSubmit (evt) {
   .then(res => {
     profileName.textContent = res.name
     profileJob.textContent = res.about
+    editProfileFormElement.reset()
+    const buttonElement = popupProfile.querySelector('.popup__submit-button')
+    buttonElement.disabled = true
+    buttonElement.classList.add('popup__submit-button_disabled')
     closePopup(popupProfile)
   })
   .catch(err => console.log(err))
@@ -109,6 +104,10 @@ function handleEditAvatarFormSubmit (evt) {
   changeAvatar(avatarInput.value)
   .then(res => {
     avatar.src = res.avatar
+    editAvatarFormElement.reset()
+    const buttonElement = popupEditAvatar.querySelector('.popup__submit-button')
+    buttonElement.disabled = true
+    buttonElement.classList.add('popup__submit-button_disabled')
     closePopup(popupEditAvatar)
   })
   .catch(err => console.log(err))

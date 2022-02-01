@@ -1,5 +1,5 @@
 .profile__item {
-  max-width: 336px;
+  max-width: 436px;
   display: grid;
   grid-template-columns: 1fr min-content;
   grid-gap: 9px 18px;

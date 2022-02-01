@@ -46,17 +46,20 @@ function addCard(cardData, userId) {
 
   // ЛАЙКИ
 
+ // лайкнутые мной сердечки приходят с сервера окрашенными
   cardData.likes.forEach((card) => {
     if(card._id === userId) {
       likeButton.classList.add('card__heart-button_active')
     }
   })
 
+  // обработчик кнопки лайка
   likeButton.addEventListener('click', (evt) => likeCard(likeCounter, evt.target, cardData._id))
 
   return cardElement //возвращаем готовую карточку
 }
 
+// функция поставновки и удаления лайка
 const likeCard = (element, button, cardId) => {
 
   if(button.classList.contains('card__heart-button_active')) {

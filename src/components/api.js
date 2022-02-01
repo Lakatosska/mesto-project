@@ -98,33 +98,4 @@ const deleteCard = (cardId) => {
 }
 
 
-
-
-// данные профиля с сервера - вывожу в консоль
-fetch(`${config.baseUrl}/users/me`, {
-  headers: config.headers
-})
-  .then(res => res.json())
-  .then(res => console.log(res))
-
-
-// данные профилей когорты с сервера - вывожу в консоль
-fetch('https://nomoreparties.co/v1/plus-cohort-6/users/', {
-  headers: {
-    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
-  }
-})
-  .then(res => res.json())
-  .then(res => console.log(res))
-
-// карточки с сервера - вывожу в консоль
-fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
-  headers: {
-    authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c'
-  }
-})
-  .then(res => res.json())
-  .then(res => console.log(res))
-
-
 export { config, checkResponse, getAppInfo, editUserData, changeAvatar, postNewCard, addLike, deleteLike, deleteCard }
