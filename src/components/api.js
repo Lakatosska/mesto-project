@@ -71,7 +71,7 @@ const postNewCard = (name, link) => {
 }
 
 // поставить лайк
-const putLike = (cardId) => {
+const addLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
     headers: config.headers,
@@ -127,4 +127,4 @@ fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
   .then(res => console.log(res))
 
 
-export { config, checkResponse, getAppInfo, editUserData, changeAvatar, postNewCard, putLike, deleteLike, deleteCard }
+export { config, checkResponse, getAppInfo, editUserData, changeAvatar, postNewCard, addLike, deleteLike, deleteCard }

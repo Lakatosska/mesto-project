@@ -1,6 +1,6 @@
 import { openPopup } from "./modal.js"
-import { userId } from "./index.js"
-import { putLike, deleteLike, deleteCard } from "./api.js"
+import { userId, renderCard } from "./index.js"
+import { addLike, deleteLike, deleteCard } from "./api.js"
 
 // константы для модального окна просмотра картинки
 const popupImage = document.querySelector('.popup_type_image')
@@ -46,38 +46,39 @@ function addCard(cardData, userId) {
 
   // ЛАЙКИ
 
-  // возвращает true, если карточки лайкнуты мной (совпадает мой id и id лайкнувших)
-  const checkLike = (card) => {
-    return card.likes.some(like => like._id === userId)
-  }
-
-  if (checkLike(cardData)) {
-    likeButton.classList.add('card__heart-button_active')
-  }
-
-  likeButton.addEventListener('click', function (evt) {
-    if (checkLike(cardData)) {
-
-      deleteLike(cardData._id)
-        .then(cardData => {
-          likeCounter.textContent = cardData.likes.length
-          evt.target.classList.toggle('card__heart-button_active')
-        })
-        .catch(err => console.log(err))
-
-    } else {
-
-      putLike(cardData._id)
-        .then(cardData => {
-          likeCounter.textContent = cardData.likes.length
-          evt.target.classList.toggle('card__heart-button_active')
-        })
-        .catch(err => console.log(err))
+  cardData.likes.forEach((card) => {
+    if(card._id === userId) {
+      likeButton.classList.add('card__heart-button_active')
     }
   })
 
+  likeButton.addEventListener('click', (evt) => likeCard(likeCounter, evt.target, cardData._id))
+
   return cardElement //возвращаем готовую карточку
 }
+
+const likeCard = (element, button, cardId) => {
+
+  if(button.classList.contains('card__heart-button_active')) {
+
+    deleteLike(cardId)
+    .then((res) => {
+      element.textContent = res.likes.length
+      button.classList.remove('card__heart-button_active')
+    })
+    .catch(err => console.log(err))
+
+  } else {
+
+    addLike(cardId)
+    .then((res) => {
+    element.textContent = res.likes.length
+    button.classList.add('card__heart-button_active')
+  })
+  .catch(err => console.log(err))
+  }
+}
+
 
 export { addCard }
 
