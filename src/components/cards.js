@@ -1,14 +1,20 @@
-import { openPopup } from "./modal.js"
+import { openPopup, closePopup } from "./modal.js"
 import { userId } from "./index.js"
 import { addLike, deleteLike, deleteCard } from "./api.js"
+
+let deleteElem
+let deleteId
 
 // константы для модального окна просмотра картинки
 const popupImage = document.querySelector('.popup_type_image')
 const popupPhoto = popupImage.querySelector('.popup__photo')
 const popupTitle = popupImage.querySelector('.popup__sightseeing')
 
+// попап подтверждения удаления карточки
+const popupConfirm = document.querySelector('.popup_type_confirm')
 
-// функция создания карточки
+
+// ФУНКЦИЯ СОЗДАНИЯ КАРТОЧКИ
 function addCard(cardData, userId) {
   const cardTemplate = document.querySelector('#card-template').content // находим темплейт с карточками
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true) // клонируем его
@@ -29,20 +35,28 @@ function addCard(cardData, userId) {
     popupPhoto.alt = cardData.name
     popupTitle.textContent = cardData.name
     openPopup(popupImage)
-  });
+  })
 
   const likeButton = cardElement.querySelector('.card__heart-button') //находим кнопку лайка
   const trashButton = cardElement.querySelector('.card__trash-button') //находим кнопку удаления
 
   // удаляем иконку корзины, если карточки не мои
-  if (cardData.owner._id !== userId) trashButton.remove()
+  if (cardData.owner._id !== userId) {
+    trashButton.remove()}
 
-  // слушатель "корзины", удаляем карточку
+    // слушатель "корзины", удаляем карточку
   trashButton.addEventListener('click', (evt) => {
-    deleteCard(cardData._id)
-    .then(() => evt.target.closest('.card').remove())
-    .catch(err => console.log(err))
-  })
+    deleteElem = evt.target.closest('.card')
+    deleteId = cardData._id
+    openPopup(popupConfirm)
+
+})
+
+  const buttonElement = popupConfirm.querySelector('.popup__submit-button')
+
+  // удаляем карточку из попапа
+  buttonElement.addEventListener('click', deleteCardByButton)
+
 
   // ЛАЙКИ
 
@@ -58,6 +72,20 @@ function addCard(cardData, userId) {
 
   return cardElement //возвращаем готовую карточку
 }
+
+// функция удаления карточки
+function deleteCardByButton() {
+  deleteCard(deleteId)
+  .then(() => {
+    deleteElem.remove();
+    closePopup(popupConfirm);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+
 
 // функция поставновки и удаления лайка
 const likeCard = (element, button, cardId) => {
@@ -82,6 +110,14 @@ const likeCard = (element, button, cardId) => {
   }
 }
 
+/*
+const confirmDeleteCard = (popup, cardId) => {
+  deleteCard(cardId)
+  .then(() => evt.target.closest('.card').remove())
+    closePopup(popup)
+  .catch(err => console.log(err))
+}
+*/
 
 export { addCard }
 

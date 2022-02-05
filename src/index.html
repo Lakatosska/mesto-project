@@ -163,7 +163,6 @@
         <div class="popup__container popup__container_type_change-avatar">
           <form class="form form_type_change-avatar" name="change-avatar" novalidate>
             <h2 class="form__heading">Обновить аватар</h2>
-
               <label for="link" class="form__field">
                 <input id="link-input"
                   type="url"
@@ -174,8 +173,6 @@
                 />
                 <span class="form__input-error link-input-error"></span>
               </label>
-            </fieldset>
-
             <button type="submit" class="popup__submit-button">
               Сохранить
             </button>
@@ -188,6 +185,25 @@
           ></button>
         </div>
       </div>
+
+      <div class="popup popup_type_confirm">
+        <div class="popup__container popup__container_type_confirm">
+          <h2 class="form__heading form__heading_type_confirm">Вы уверены?</h2>
+          <button type="button" class="popup__submit-button">
+            Да
+          </button>
+          <button
+            type="submit"
+            class="popup__close-button"
+            aria-label="закрыть"
+          ></button>
+        </div>
+      </div>
+
+
+
+
+
     </div>
 
     <template id="card-template">
