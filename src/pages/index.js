@@ -11,8 +11,6 @@ const userInfo = new UserInfo(
   userSelectors.profileAvatar
   );
 
-
-
 api._getInitialProfile().then((userData) => {
   userInfo.setUserInfo(userData);
   console.log(userData)
@@ -20,6 +18,16 @@ api._getInitialProfile().then((userData) => {
 .catch((err) => {
   console.log(`Error: ${err}`);
 })
+
+
+// api._getInitialCards().then((cardData) => {
+
+// })
+// .catch((err) => {
+//   console.log(`Error: ${err}`);
+// })
+
+
 
 
 /*

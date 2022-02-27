@@ -1,5 +1,90 @@
+export default class Card {
+  constructor({ cardData, handleCardClick, handleLikeClick, handleDeleteClick }, userId, cardSelector) {
+      this._id = cardData._id;
+      this._name = cardData.name;
+      this._link = cardData.link;
+      this._likes = cardData.likes;
+      this._ownerId = cardData.owner._id;
+
+      this._userId = userId;
+
+      this._handleCardClick = handleCardClick;
+      this._handleLikeClick = handleLikeClick;
+      this._handleDeleteClick = handleDeleteClick;
+
+      this._cardSelector = cardSelector;
+  }
+
+  // Формирование DOM-элемента карточки
+  getView() {
+      this._element = this._getTemplate();
+
+      this._element.querySelector('.card__title').textContent = this._name;
+      const image = this._element.querySelector('.card__image');
+      image.src = this._link;
+      image.alt = this._name;
+      this._updateLikesView();
+
+      this._setEventListeners();
+
+      return this._element;
+  }
+
+  // Удаление карточки из верстки
+  remove() {
+      this._element.remove();
+      this._element = null;
+  }
+
+  id() {
+      return this._id;
+  }
+
+  // Лайкали ли мы карточку
+  isLiked() {
+      return Boolean(this._likes.find(user => user._id === this._userId));
+  }
+
+  // Обновить состояние лайка и счетчика на основе новых данных карточки
+  updateLikes(cardData) {
+      this._likes = cardData.likes;
+      this._updateLikesView();
+  }
+
+  // Скопировать DOM-элемент карточки из шаблона
+  _getTemplate() {
+      return document
+          .querySelector(this._cardSelector)
+          .content
+          .querySelector('.card')
+          .cloneNode(true);
+  }
+
+  // Навесить всякие слушатели на DOM-элемент карточки
+  _setEventListeners() {
+      this._element.querySelector('.card__delete-button').addEventListener('click', (event) => {
+          this._handleDeleteClick(this); // Внутрь передаем сами себя, чтобы в функции был доступ к методам объекта карточки
+      });
+      // ....
+  }
+
+  // Актуализировать визуал лайка
+  _updateLikesView() {
+      this._element.querySelector('.card__like-counter').textContent = this._likes.length;
+      const like = this._element.querySelector('.card__like');
+
+      if (this.isLiked()) {
+          like.classList.add('.card__like_active');
+      } else {
+          like.classList.remove('.card__like_active');
+      }
+  }
+}
 
 
+
+
+/*
 import { openPopup } from "./modal.js"
 import { userId } from "../pages/index.js"
 import { addLike, deleteLike, deleteCard } from "./api.js"
@@ -86,6 +171,6 @@ const likeCard = (element, button, cardId) => {
 
 
 export { addCard }
-
+*/
 
 
