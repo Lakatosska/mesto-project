@@ -5,12 +5,17 @@ import { config, userSelectors } from '../utils/constants.js';
 
 const api = new Api(config);
 
-const userInfo = new UserInfo(userSelectors);
+const userInfo = new UserInfo(
+  userSelectors.profileName,
+  userSelectors.profileJob,
+  userSelectors.profileAvatar
+  );
 
 
 
 api._getInitialProfile().then((userData) => {
   userInfo.setUserInfo(userData);
+  console.log(userData)
 })
 .catch((err) => {
   console.log(`Error: ${err}`);

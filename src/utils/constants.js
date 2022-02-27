@@ -9,5 +9,5 @@ export const config = {
 export const userSelectors = {
   profileName: '.profile__name',
   profileJob: '.profile__job',
-  profileAvatar: '.profile__avatar',
+  profileAvatar: '.profile__avatar-image',
 };
