@@ -9,8 +9,8 @@ export default class Card {
 
   generate() {
     this._element = this._getElement();
-    this._cardImage = this._element.querySelector(".card__photo");
-    this._cardTitle = this._element.querySelector(".card__title");
+    this._cardImage = this._element.querySelector('.card__photo');
+    this._cardTitle = this._element.querySelector('.card__sightseeing');
 
     this._cardImage.src = this._cardData.link;
     this._cardImage.alt = this._cardData.name;
@@ -30,11 +30,9 @@ export default class Card {
 
   _getElement() {
     const templateCard = document.querySelector(this._selector);
-    const cardElement = templateCard.content
+    return templateCard.content
       .querySelector('.card')
       .cloneNode(true);
-    return cardElement;
-
   }
 }
 
