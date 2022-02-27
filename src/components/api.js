@@ -10,10 +10,10 @@ export default class Api {
 
   // функция загрузки данных для профиля и карточек
   getAppInfo() {
-    return Promise.all([this._getCards(), this._getUserData()]);
+    return Promise.all([this._getInitialProfile(), this._getInitialCards()]);
   }
 
-  // получение данных профиля с сервера
+   // получение данных профиля с сервера
   _getInitialProfile() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers

@@ -1,6 +1,8 @@
 import './index.css';
 import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
 import { config, userSelectors } from '../utils/constants.js';
 
 const api = new Api(config);
@@ -9,23 +11,35 @@ const userInfo = new UserInfo(
   userSelectors.profileName,
   userSelectors.profileJob,
   userSelectors.profileAvatar
-  );
+);
+
+
+const cardList = new Section({
+  renderer: (item) => {
+    const card = new Card({
+      data: item,
+      selector: '.card-template',
+      userId: userInfo.getUserInfo().userId,
+      });
+    return card.generate();
+    },
+  }, '.cards__list');
+
 
 api._getInitialProfile().then((userData) => {
   userInfo.setUserInfo(userData);
-  console.log(userData)
 })
 .catch((err) => {
   console.log(`Error: ${err}`);
 })
 
-
-// api._getInitialCards().then((cardData) => {
-
-// })
-// .catch((err) => {
-//   console.log(`Error: ${err}`);
-// })
+api._getInitialCards().then((cardData) => {
+  console.log(cardData)
+  cardList.renderItems(cardData)
+})
+.catch((err) => {
+  console.log(`Error: ${err}`);
+});
 
 
 

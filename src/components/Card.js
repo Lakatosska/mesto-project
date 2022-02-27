@@ -1,5 +1,47 @@
 export default class Card {
-  constructor({ cardData, handleCardClick, handleLikeClick, handleDeleteClick }, userId, cardSelector) {
+  constructor({
+    data,
+    selector
+  }) {
+    this._cardData = data;
+    this._selector = selector;
+  }
+
+  generate() {
+    this._element = this._getElement();
+    this._cardImage = this._element.querySelector(".card__photo");
+    this._cardTitle = this._element.querySelector(".card__title");
+
+    this._cardImage.src = this._cardData.link;
+    this._cardImage.alt = this._cardData.name;
+    this._cardTitle.textContent = this._cardData.name;
+
+    return this._element;
+  }
+
+  getCardId() {
+    return this._cardData._id;
+  }
+
+  removeCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
+  _getElement() {
+    const templateCard = document.querySelector(this._selector);
+    const cardElement = templateCard.content
+      .querySelector('.card')
+      .cloneNode(true);
+    return cardElement;
+
+  }
+}
+
+/*
+//из вебинара Кости
+export default class Card {
+  constructor({ cardData }, userId, cardSelector) {
       this._id = cardData._id;
       this._name = cardData.name;
       this._link = cardData.link;
@@ -7,10 +49,6 @@ export default class Card {
       this._ownerId = cardData.owner._id;
 
       this._userId = userId;
-
-      this._handleCardClick = handleCardClick;
-      this._handleLikeClick = handleLikeClick;
-      this._handleDeleteClick = handleDeleteClick;
 
       this._cardSelector = cardSelector;
   }
@@ -20,7 +58,7 @@ export default class Card {
       this._element = this._getTemplate();
 
       this._element.querySelector('.card__title').textContent = this._name;
-      const image = this._element.querySelector('.card__image');
+      const image = this._element.querySelector('.card__photo');
       image.src = this._link;
       image.alt = this._name;
       this._updateLikesView();
@@ -84,7 +122,7 @@ export default class Card {
 
 
 
-/*
+
 import { openPopup } from "./modal.js"
 import { userId } from "../pages/index.js"
 import { addLike, deleteLike, deleteCard } from "./api.js"
