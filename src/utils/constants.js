@@ -4,4 +4,10 @@ export const config = {
     authorization: 'f4364e86-dc65-4e42-997a-34b37541ff0c',
     'Content-Type': 'application/json'
   }
-}
+};
+
+export const userSelectors = {
+  profileName: '.profile__name',
+  profileJob: '.profile__job',
+  profileAvatar: '.profile__avatar',
+};

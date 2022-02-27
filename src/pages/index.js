@@ -1,8 +1,19 @@
+import './index.css';
+import Api from "../components/Api.js";
+import UserInfo from "../components/UserInfo.js";
+import { config, userSelectors } from '../utils/constants.js';
+
+const api = new Api(config);
+
+const userInfo = new UserInfo(userSelectors);
+
+
+/*
 import '../pages/index.css'
-import { addCard } from './cards.js'
-import { enableValidation } from './validate.js'
-import { openPopup, closePopup } from './modal.js'
-import { getAppInfo, editUserData, changeAvatar, postNewCard } from './api.js'
+import { addCard } from '../components/cards.js'
+import { enableValidation } from '../components/validate.js'
+import { openPopup, closePopup } from '../components/modal.js'
+import { getAppInfo, editUserData, changeAvatar, postNewCard } from '../components/api.js'
 
 export let userId
 
@@ -166,5 +177,4 @@ const renderLoading = (isLoading, popup) => {
     popupButton.textContent = 'Сохранить'
   }
 }
-
-
+*/
