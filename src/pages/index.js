@@ -18,7 +18,7 @@ const cardList = new Section({
   renderer: (item) => {
     const card = new Card({
       data: item,
-      selector: '.card-template',
+      selector: '#card-template',
       userId: userInfo.getUserInfo().userId,
       });
     return card.generate();
@@ -26,21 +26,13 @@ const cardList = new Section({
   }, '.cards__list');
 
 
-api._getInitialProfile().then((userData) => {
+api.getAppInfo().then(([userData, cardData]) => {
   userInfo.setUserInfo(userData);
-})
-.catch((err) => {
-  console.log(`Error: ${err}`);
-})
-
-api._getInitialCards().then((cardData) => {
-  console.log(cardData)
-  cardList.renderItems(cardData)
+  cardList.renderItems(cardData);
 })
 .catch((err) => {
   console.log(`Error: ${err}`);
 });
-
 
 
 
