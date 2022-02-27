@@ -8,6 +8,15 @@ const api = new Api(config);
 const userInfo = new UserInfo(userSelectors);
 
 
+
+api._getInitialProfile().then((userData) => {
+  userInfo.setUserInfo(userData);
+})
+.catch((err) => {
+  console.log(`Error: ${err}`);
+})
+
+
 /*
 import '../pages/index.css'
 import { addCard } from '../components/cards.js'
