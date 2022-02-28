@@ -13,6 +13,9 @@ import {
   editAvatar,
 } from '../utils/constants.js';
 
+function handleCardClick(card) {
+  popupImage.open(card);
+}
 
 const api = new Api(config);
 
@@ -27,6 +30,7 @@ const cardList = new Section({
   renderer: (item) => {
     const card = new Card({
       data: item,
+      handleCardClick,
       selector: '#card-template',
       userId: userInfo.getUserInfo().userId,
       });
@@ -35,9 +39,10 @@ const cardList = new Section({
   }, '.cards__list');
 
 
+
 api.getAppInfo().then(([userData, cardData]) => {
   userInfo.setUserInfo(userData);
-  cardList.renderItems(cardData);
+  cardList.renderItems(cardData.reverse());
 })
 .catch((err) => {
   console.log(`Error: ${err}`);
