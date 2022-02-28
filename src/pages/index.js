@@ -3,7 +3,16 @@ import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import { config, userSelectors } from '../utils/constants.js';
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import {
+  config,
+  userSelectors,
+  editProfileButton,
+  addButton,
+  editAvatar,
+} from '../utils/constants.js';
+
 
 const api = new Api(config);
 
@@ -32,6 +41,24 @@ api.getAppInfo().then(([userData, cardData]) => {
 })
 .catch((err) => {
   console.log(`Error: ${err}`);
+});
+
+const popupImage = new PopupWithImage('.popup_type_image')
+const popupEditProfile = new Popup('.popup_type_edit-profile');
+const popupAddCard = new Popup('.popup_type_add-card');
+const popupEditAvatar = new Popup('.popup_type_change-avatar');
+
+// Listeners
+editProfileButton.addEventListener('click', () => {
+  popupEditProfile.open();
+});
+
+addButton.addEventListener('click', () => {
+  popupAddCard.open();
+});
+
+editAvatar.addEventListener('click', () => {
+  popupEditAvatar.open();
 });
 
 

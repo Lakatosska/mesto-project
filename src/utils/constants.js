@@ -11,3 +11,7 @@ export const userSelectors = {
   profileJob: '.profile__job',
   profileAvatar: '.profile__avatar-image',
 };
+
+export const editProfileButton =  document.querySelector('.profile__edit-button');
+export const addButton = document.querySelector('.profile__add-button');
+export const editAvatar =  document.querySelector('.profile__avatar');
