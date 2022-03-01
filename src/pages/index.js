@@ -13,9 +13,12 @@ import {
   editAvatar,
 } from '../utils/constants.js';
 
+
 function handleCardClick(card) {
   popupImage.open(card);
+  console.log(card)
 }
+
 
 const api = new Api(config);
 
@@ -30,13 +33,17 @@ const cardList = new Section({
   renderer: (item) => {
     const card = new Card({
       data: item,
+
       handleCardClick,
+
       selector: '#card-template',
       userId: userInfo.getUserInfo().userId,
       });
     return card.generate();
     },
-  }, '.cards__list');
+  },
+  '.cards__list'
+);
 
 
 
@@ -48,7 +55,9 @@ api.getAppInfo().then(([userData, cardData]) => {
   console.log(`Error: ${err}`);
 });
 
-const popupImage = new PopupWithImage('.popup_type_image')
+const popupImage = new PopupWithImage('.popup_type_image');
+popupImage.setEventListeners();
+
 const popupEditProfile = new Popup('.popup_type_edit-profile');
 const popupAddCard = new Popup('.popup_type_add-card');
 const popupEditAvatar = new Popup('.popup_type_change-avatar');

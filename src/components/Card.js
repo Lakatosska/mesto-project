@@ -18,6 +18,8 @@ export default class Card {
     this._cardImage.alt = this._cardData.name;
     this._cardTitle.textContent = this._cardData.name;
 
+
+
     this._setEventListeners();
 
     return this._element;
@@ -40,8 +42,11 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener('click', () => this._handleCardClick());
-  }
+    this._cardImage.addEventListener('click', () => this._handleCardClick({
+      image: this._cardImage.src,
+      title: this._cardTitle.textContent,
+    })
+  )}
 }
 
 /*
