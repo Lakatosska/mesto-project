@@ -17,5 +17,3 @@ export default class PopupWithImage extends Popup {
 
   }
 }
-
-//В методе open класса PopupWithImage нужно вставлять в попап картинку с src изображения и подписью к картинке
