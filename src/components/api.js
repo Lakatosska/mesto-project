@@ -29,16 +29,16 @@ export default class Api {
     .then(this._checkResponse)
   }
 
-  // редактирование аватара
-  changeAvatar(url) {
-    return fetch(`${this._options.baseUrl}/users/me/avatar `, {
+  editUserData(name, about) {
+    return fetch(`${config.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._options.headers,
+      headers: config.headers,
       body: JSON.stringify({
-        avatar: url
+        name: name,
+        about: about,
       })
     })
-    .then(this._checkResponse)
+    .then(checkResponse)
   }
 
   // добавление новой карточки
@@ -49,6 +49,18 @@ export default class Api {
       body: JSON.stringify({
         name: name,
         link: link
+      })
+    })
+    .then(this._checkResponse)
+  }
+
+  // редактирование аватара
+  changeAvatar(url) {
+    return fetch(`${this._options.baseUrl}/users/me/avatar `, {
+      method: 'PATCH',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        avatar: url
       })
     })
     .then(this._checkResponse)

@@ -1,10 +1,10 @@
 import './index.css';
-import Api from "../components/Api.js";
-import UserInfo from "../components/UserInfo.js";
-import Card from "../components/Card.js";
-import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
-import PopupWithImage from "../components/PopupWithImage.js";
+import Api from '../components/Api.js';
+import UserInfo from '../components/UserInfo.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import {
   config,
   userSelectors,
@@ -58,9 +58,29 @@ api.getAppInfo().then(([userData, cardData]) => {
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
 
-const popupEditProfile = new Popup('.popup_type_edit-profile');
-const popupAddCard = new Popup('.popup_type_add-card');
-const popupEditAvatar = new Popup('.popup_type_change-avatar');
+const popupEditProfile = new PopupWithForm({
+  popupSelector: '.popup_type_edit-profile',
+  handleFormSubmit: (data) => {
+    api.editUserData(data.name, data.about)
+    .then(userData => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        about: userData.about
+      })
+    })
+  }
+})
+
+
+popupEditProfile.setEventListeners();
+
+/*
+const popupAddCard = new PopupWithForm('.popup_type_add-card', handleFormSubmit);
+popupAddCard.setEventListeners();
+const popupEditAvatar = new PopupWithForm('.popup_type_change-avatar', handleFormSubmit);
+popupEditAvatar.setEventListeners();
+*/
+
 
 // Listeners
 editProfileButton.addEventListener('click', () => {

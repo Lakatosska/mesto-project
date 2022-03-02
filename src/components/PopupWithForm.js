@@ -1,13 +1,12 @@
-import { format } from 'core-js/core/date';
 import Popup from './Popup.js'
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleFormSubmit) {
+  constructor({ popupSelector, handleFormSubmit }) {
 
     super(popupSelector);
-    this._form = form;
+    this._form = this._popup.querySelector('.form');
     this._handleFormSubmit = handleFormSubmit;
-    this._inputList = this._element.querySelectorAll('.form__input');
+    this._inputList = this._popup.querySelectorAll('.form__input');
 
   }
 
@@ -17,10 +16,10 @@ export default class PopupWithForm extends Popup {
 
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     super.setEventListeners();
     // + обработчик сабмита формы
-    this._form.addEventListener('submit', (evt) => {
+    this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault;
       this._handleFormSubmit(this._getInputValues)
 
