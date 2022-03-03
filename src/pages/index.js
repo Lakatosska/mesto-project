@@ -91,12 +91,23 @@ const popupEditAvatar = new PopupWithForm({
 popupEditAvatar.setEventListeners();
 
 
+const popupAddCard = new PopupWithForm({
+  popupSelector:'.popup_type_add-card',
+  handleFormSubmit: (data) =>
 
+    api
+    .postNewCard(data.card_name, data.card_link)
+    .then(cardData => {
+      cardList.addItem(cardData);
+      popupAddCard.close();
+    })
+    .catch((err) => {
+      console.log(`Error: ${err}`);
+    })
+});
 
-/*
-const popupAddCard = new PopupWithForm('.popup_type_add-card', handleFormSubmit);
 popupAddCard.setEventListeners();
-*/
+
 
 
 // Listeners
