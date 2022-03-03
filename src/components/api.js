@@ -30,15 +30,15 @@ export default class Api {
   }
 
   editUserData(name, about) {
-    return fetch(`${config.baseUrl}/users/me`, {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: config.headers,
+      headers: this._options.headers,
       body: JSON.stringify({
         name: name,
-        about: about,
+        about: about
       })
     })
-    .then(checkResponse)
+    .then(this._checkResponse)
   }
 
   // добавление новой карточки

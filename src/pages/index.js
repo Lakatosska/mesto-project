@@ -11,6 +11,8 @@ import {
   editProfileButton,
   addButton,
   editAvatar,
+  nameInput,
+  jobInput
 } from '../utils/constants.js';
 
 
@@ -45,34 +47,30 @@ const cardList = new Section({
   '.cards__list'
 );
 
-
-
-api.getAppInfo().then(([userData, cardData]) => {
-  userInfo.setUserInfo(userData);
-  cardList.renderItems(cardData.reverse());
-})
-.catch((err) => {
-  console.log(`Error: ${err}`);
-});
-
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListeners();
+
 
 const popupEditProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleFormSubmit: (data) => {
-    api.editUserData(data.name, data.about)
+
+    api.editUserData(data.profile__name, data.profile__job)
     .then(userData => {
-      userInfo.setUserInfo({
-        name: userData.name,
-        about: userData.about
-      })
+
+      userInfo.setUserInfo(userData);
+      popupEditProfile.close();
+    })
+    .catch((err) => {
+      console.log(`Error: ${err}`);
     })
   }
 })
 
-
 popupEditProfile.setEventListeners();
+
+
+
 
 /*
 const popupAddCard = new PopupWithForm('.popup_type_add-card', handleFormSubmit);
@@ -83,8 +81,16 @@ popupEditAvatar.setEventListeners();
 
 
 // Listeners
+
 editProfileButton.addEventListener('click', () => {
   popupEditProfile.open();
+
+  const currentUser = userInfo.getUserInfo();
+
+  nameInput.value = currentUser.name;
+  jobInput.value = currentUser.about;
+
+
 });
 
 addButton.addEventListener('click', () => {
@@ -93,6 +99,16 @@ addButton.addEventListener('click', () => {
 
 editAvatar.addEventListener('click', () => {
   popupEditAvatar.open();
+});
+
+
+
+api.getAppInfo().then(([userData, cardData]) => {
+  userInfo.setUserInfo(userData);
+  cardList.renderItems(cardData.reverse());
+})
+.catch((err) => {
+  console.log(`Error: ${err}`);
 });
 
 
