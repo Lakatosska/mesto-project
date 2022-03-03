@@ -55,7 +55,8 @@ const popupEditProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleFormSubmit: (data) => {
 
-    api.editUserData(data.profile__name, data.profile__job)
+    api
+    .editUserData(data.profile__name, data.profile__job)
     .then(userData => {
 
       userInfo.setUserInfo(userData);
@@ -69,14 +70,16 @@ const popupEditProfile = new PopupWithForm({
 
 popupEditProfile.setEventListeners();
 
+
 const popupEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_change-avatar',
   handleFormSubmit: (data) => {
 
-    api.changeAvatar(data.avatar_link)
+    api
+    .changeAvatar(data.avatar_link)
     .then(userData => {
 
-      userInfo.setUserInfo({ userData });
+      userInfo.setUserInfo(userData);
       popupEditAvatar.close();
     })
     .catch((err) => {
@@ -93,8 +96,6 @@ popupEditAvatar.setEventListeners();
 /*
 const popupAddCard = new PopupWithForm('.popup_type_add-card', handleFormSubmit);
 popupAddCard.setEventListeners();
-const popupEditAvatar = new PopupWithForm('.popup_type_change-avatar', handleFormSubmit);
-popupEditAvatar.setEventListeners();
 */
 
 
