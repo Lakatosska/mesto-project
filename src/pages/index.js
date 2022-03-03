@@ -5,7 +5,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-//import FormValidator from '../components/FormValidator.js';
+import FormValidator from '../components/FormValidator.js';
 import {
   config,
   validationConfig,
@@ -18,16 +18,20 @@ import {
   jobInput
 } from '../utils/constants.js';
 
-/*
+
+
 // валидация
+
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditProfile
 );
+
 const addCardFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formAddCard
 );
+
 const editAvatarFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditAvatar
@@ -36,7 +40,7 @@ const editAvatarFormValidator = new FormValidator(
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 editAvatarFormValidator.enableValidation();
-*/
+
 
 function handleCardClick(card) {
   popupImage.open(card);
