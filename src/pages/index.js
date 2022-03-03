@@ -69,6 +69,24 @@ const popupEditProfile = new PopupWithForm({
 
 popupEditProfile.setEventListeners();
 
+const popupEditAvatar = new PopupWithForm({
+  popupSelector: '.popup_type_change-avatar',
+  handleFormSubmit: (data) => {
+
+    api.changeAvatar(data.avatar_link)
+    .then(userData => {
+
+      userInfo.setUserInfo({ userData });
+      popupEditAvatar.close();
+    })
+    .catch((err) => {
+      console.log(`Error: ${err}`);
+    })
+  }
+})
+
+popupEditAvatar.setEventListeners();
+
 
 
 
@@ -89,8 +107,6 @@ editProfileButton.addEventListener('click', () => {
 
   nameInput.value = currentUser.name;
   jobInput.value = currentUser.about;
-
-
 });
 
 addButton.addEventListener('click', () => {
