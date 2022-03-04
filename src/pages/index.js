@@ -56,10 +56,49 @@ function handleDeleteClick(card) {
   })
 }
 
-
-function toggleLike() {
-  console.log('1111')
+function toggleLike(card) {
+  if (!card.isLiked()) {
+    api.addLike(card.getCardId())
+    .then((cardData) => {
+      card.updateLikes(cardData)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  } else {
+    api.deleteLike(card.getCardId())
+    .then((cardData) => {
+      card.updateLikes(cardData)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 }
+
+/*
+function toggleLike(card) {
+  if (card.isLiked()) {
+    api
+      .deleteLike(card._cardData._id)
+      .then((likes) => {
+        card.updateLikes(likes);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  } else {
+    api
+      .setLike(card._cardData._id)
+      .then((likes) => {
+        card.updateLikes(likes);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  }
+}
+*/
 
 
 const api = new Api(config);

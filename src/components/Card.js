@@ -51,15 +51,27 @@ export default class Card {
     this._updateLikesView();
   }
 
+  removeCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
+  // Обновить состояние лайка и счетчика на основе новых данных карточки
+  updateLikes(cardData) {
+    this._likes = cardData.likes;
+    this._updateLikesView();
+}
+
   // Актуализировать визуал лайка
   _updateLikesView() {
     this._likeCounter.textContent = this._likes.length;
-    const like = this._element.querySelector('.card__heart-button');
+    this._like = this._element.querySelector('.card__heart-button');
+
 
     if (this.isLiked()) {
-        like.classList.add('.card__heart-button_active');
+        this._like.classList.add('.card__heart-button_active');
     } else {
-        like.classList.remove('.card__heart-button_active');
+        this._like.classList.remove('.card__heart-button_active');
     }
   }
 
@@ -67,11 +79,6 @@ export default class Card {
     if (this._cardData.owner._id !== this._userId) {
       this._trashButton.remove();
     }
-  }
-
-  removeCard() {
-    this._element.remove();
-    this._element = null;
   }
 
   _getElement() {
@@ -91,6 +98,14 @@ export default class Card {
     this._trashButton.addEventListener('click', () => {
       this._handleDeleteClick(this); // Внутрь передаем сами себя, чтобы в функции был доступ к методам объекта карточки
     })
+
+
+    this._like = this._element.querySelector('.card__heart-button');
+
+    this._like.addEventListener('click', () => {
+      this._toggleLike(this);
+    })
+
 
   }
 
