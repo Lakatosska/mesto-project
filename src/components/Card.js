@@ -30,7 +30,6 @@ export default class Card {
 
     this._updateLikesView();
     this._showTrashButton();
-
     this._setEventListeners();
 
     return this._element;
@@ -60,7 +59,6 @@ export default class Card {
   _updateLikesView() {
     this._likeCounter.textContent = this._likes.length;
     this._like = this._element.querySelector('.card__heart-button');
-
 
     if (this.isLiked()) {
         this._like.classList.add('card__heart-button_active');
@@ -97,5 +95,4 @@ export default class Card {
       this._toggleLike(this);
     })
   }
-
 }
