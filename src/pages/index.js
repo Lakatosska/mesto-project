@@ -1,5 +1,5 @@
 import './index.css';
-import Api from '../components/Api1.js';
+import Api from '../components/Api.js';
 import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
