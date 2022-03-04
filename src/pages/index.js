@@ -21,7 +21,6 @@ import {
 
 
 // валидация
-
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditProfile
@@ -42,8 +41,24 @@ addCardFormValidator.enableValidation();
 editAvatarFormValidator.enableValidation();
 
 
+
 function handleCardClick(card) {
   popupImage.open(card);
+}
+
+function handleDeleteClick(card) {
+  api.deleteCard(card.getCardId())
+  .then(() => {
+  card.removeCard();
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+
+function toggleLike() {
+  console.log('1111')
 }
 
 
@@ -62,6 +77,8 @@ const cardList = new Section({
       data: item,
 
       handleCardClick,
+      handleDeleteClick,
+      toggleLike,
 
       selector: '#card-template',
       userId: userInfo.getUserInfo().userId,
