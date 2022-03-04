@@ -41,7 +41,6 @@ addCardFormValidator.enableValidation();
 editAvatarFormValidator.enableValidation();
 
 
-
 function handleCardClick(card) {
   popupImage.open(card);
 }
@@ -75,31 +74,6 @@ function toggleLike(card) {
     })
   }
 }
-
-/*
-function toggleLike(card) {
-  if (card.isLiked()) {
-    api
-      .deleteLike(card._cardData._id)
-      .then((likes) => {
-        card.updateLikes(likes);
-      })
-      .catch((err) => {
-        console.log(`Error: ${err}`);
-      });
-  } else {
-    api
-      .setLike(card._cardData._id)
-      .then((likes) => {
-        card.updateLikes(likes);
-      })
-      .catch((err) => {
-        console.log(`Error: ${err}`);
-      });
-  }
-}
-*/
-
 
 const api = new Api(config);
 
