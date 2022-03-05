@@ -25,6 +25,10 @@ export default class FormValidator {
     this._setEventListener();
   }
 
+  resetValidation() {
+    this._toggleButtonState();
+  }
+
   _hasInvalidInput() {
     return this._inputs.some((input) => {
       return !input.validity.valid;
@@ -76,10 +80,12 @@ export default class FormValidator {
         this._handlerInputValidity(errorElement, input);
         this._toggleButtonState();
       });
+
       this._form.addEventListener('reset', () => {
         this._setDisabledButton();
         this._hideErrorMessage(errorElement, input);
       });
+
     });
   }
 }

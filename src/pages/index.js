@@ -6,6 +6,7 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import FormValidator from '../components/FormValidator.js';
+import { renderLoading } from '../utils/utils.js';
 import {
   config,
   validationConfig,
@@ -107,7 +108,7 @@ popupImage.setEventListeners();
 const popupEditProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleFormSubmit: (data) => {
-
+    renderLoading('.popup_type_edit-profile', true);
     api
     .editUserData(data.profile__name, data.profile__job)
     .then(userData => {
@@ -118,6 +119,10 @@ const popupEditProfile = new PopupWithForm({
     .catch((err) => {
       console.log(`Error: ${err}`);
     })
+    .finally(() => {
+      renderLoading('.popup_type_edit-profile', false);
+    });
+
   }
 })
 
@@ -127,7 +132,7 @@ popupEditProfile.setEventListeners();
 const popupEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_change-avatar',
   handleFormSubmit: (data) => {
-
+    renderLoading('.popup_type_change-avatar', true);
     api
     .changeAvatar(data.avatar_link)
     .then(userData => {
@@ -138,6 +143,10 @@ const popupEditAvatar = new PopupWithForm({
     .catch((err) => {
       console.log(`Error: ${err}`);
     })
+    .finally(() => {
+      renderLoading('.popup_type_change-avatar', false);
+    });
+
   }
 })
 
@@ -146,8 +155,8 @@ popupEditAvatar.setEventListeners();
 
 const popupAddCard = new PopupWithForm({
   popupSelector:'.popup_type_add-card',
-  handleFormSubmit: (data) =>
-
+  handleFormSubmit: (data) => {
+    renderLoading('.popup_type_add-card', true, "Создать", "Создание...");
     api
     .postNewCard(data.card_name, data.card_link)
     .then(cardData => {
@@ -157,6 +166,11 @@ const popupAddCard = new PopupWithForm({
     .catch((err) => {
       console.log(`Error: ${err}`);
     })
+    .finally(() => {
+      renderLoading('.popup_type_add-card', false);
+    })
+  }
+
 });
 
 popupAddCard.setEventListeners();
@@ -167,21 +181,22 @@ editProfileButton.addEventListener('click', () => {
   popupEditProfile.open();
 
   const currentUser = userInfo.getUserInfo();
-
   nameInput.value = currentUser.name;
   jobInput.value = currentUser.about;
 });
 
 addButton.addEventListener('click', () => {
+  addCardFormValidator.resetValidation();
   popupAddCard.open();
 });
 
 editAvatar.addEventListener('click', () => {
+  editAvatarFormValidator.resetValidation();
   popupEditAvatar.open();
 });
 
 
-
+// page initialization
 api.getAppInfo().then(([userData, cardData]) => {
   userInfo.setUserInfo(userData);
   cardList.renderItems(cardData.reverse());
