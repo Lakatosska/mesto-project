@@ -29,6 +29,7 @@ export default class Api {
     .then(this._checkResponse)
   }
 
+  // редактировать данные профиля
   editUserData(name, about) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
@@ -84,6 +85,7 @@ export default class Api {
     .then(this._checkResponse)
   }
 
+  // удалить карточку
   deleteCard(cardId) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
@@ -91,5 +93,5 @@ export default class Api {
     })
     .then(this._checkResponse)
   }
-
 }
+
