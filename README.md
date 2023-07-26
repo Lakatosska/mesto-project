@@ -27,5 +27,7 @@
 
 [Ссылка на проект на GitHub Pages](https://lakatosska.github.io/mesto-project)
 
+[Рефакторинг на ООП - pair programming via Live Share plugin](https://github.com/AndreyArkhp/mesto-project)
+
 
 
